@@ -15,7 +15,7 @@ import java.net.InetAddress;
 public class InetAddressTest {
 	public static void main(String[] args) throws Exception {
 		// 根据主机名来获取对应的InetAddress实例
-		InetAddress ip = InetAddress.getByName("www.oneedu.cn");
+		InetAddress ip = InetAddress.getByName("www.baidu.cn");
 		// 判断是否可达
 		System.out.println("oneedu是否可达：" + ip.isReachable(2000));
 		// 获取该InetAddress实例的IP字符串
