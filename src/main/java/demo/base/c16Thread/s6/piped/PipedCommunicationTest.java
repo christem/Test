@@ -1,125 +1,106 @@
+package demo.base.c16Thread.s6.piped;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PipedReader;
+import java.io.PipedWriter;
+
 /**
- * Description:
- * <br/>Copyright (C), 2008-2010, Yeeku.H.Lee
- * <br/>This program is protected by copyright laws.
- * <br/>Program Name:
- * <br/>Date:
- * @author  Yeeku.H.Lee kongyeeku@163.com
- * @version  1.0
+ * Description: <br/>
+ * Copyright (C), 2008-2010, Yeeku.H.Lee <br/>
+ * This program is protected by copyright laws. <br/>
+ * Program Name: <br/>
+ * Date:
+ * 
+ * @author Yeeku.H.Lee kongyeeku@163.com
+ * @version 1.0
  */
-class ReaderThread extends Thread
-{
+class ReaderThread extends Thread {
 	private PipedReader pr;
-	//ÓÃÓÚ°ü×°¹ÜµÀÁ÷µÄBufferReader¶ÔÏó
+	// ï¿½ï¿½ï¿½Ú°ï¿½×°ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½BufferReaderï¿½ï¿½ï¿½ï¿½
 	private BufferedReader br;
-	public ReaderThread(){}
-	public ReaderThread(PipedReader pr)
-	{
+
+	public ReaderThread() {
+	}
+
+	public ReaderThread(PipedReader pr) {
 		this.pr = pr;
 		this.br = new BufferedReader(pr);
 	}
-	public void run()
-	{
+
+	public void run() {
 		String buf = null;
-		try
-		{
-			//ÖðÐÐ¶ÁÈ¡¹ÜµÀÊäÈëÁ÷ÖÐµÄÄÚÈÝ
-			while ((buf = br.readLine()) != null)
-			{
+		try {
+			// ï¿½ï¿½ï¿½Ð¶ï¿½È¡ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½
+			while ((buf = br.readLine()) != null) {
 				System.out.println(buf);
 			}
-		}
-		catch (IOException ex)
-		{
+		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
-		//Ê¹ÓÃfinally¿éÀ´¹Ø±ÕÊäÈëÁ÷
-		finally
-		{
-			try
-			{
-				if (br != null)
-				{
+		// Ê¹ï¿½ï¿½finallyï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		finally {
+			try {
+				if (br != null) {
 					br.close();
 				}
-			}
-			catch (IOException ex)
-			{
+			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
 		}
 	}
 }
-class WriterThread extends Thread
-{
-	String[] books = new String[]
-	{
-		"Struts2È¨ÍþÖ¸ÄÏ",
-		"RORÃô½Ý¿ª·¢Ö¸ÄÏ",
-		"»ùÓÚJ2EEµÄAjax±¦µä",
-		"ÇáÁ¿¼¶J2EEÆóÒµÓ¦ÓÃÖ¸ÄÏ"
-	};
+
+class WriterThread extends Thread {
+	String[] books = new String[] { "Struts2È¨ï¿½ï¿½Ö¸ï¿½ï¿½", "RORï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½",
+			"ï¿½ï¿½ï¿½ï¿½J2EEï¿½ï¿½Ajaxï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½J2EEï¿½ï¿½ÒµÓ¦ï¿½ï¿½Ö¸ï¿½ï¿½" };
 	private PipedWriter pw;
-	public WriterThread(){}
-	public WriterThread(PipedWriter pw)
-	{
+
+	public WriterThread() {
+	}
+
+	public WriterThread(PipedWriter pw) {
 		this.pw = pw;
 	}
-	public void run()
-	{
-		try
-		{
-			//Ñ­»·100´Î£¬Ïò¹ÜµÀÊä³öÁ÷ÖÐÐ´Èë100¸ö×Ö·û´®
-			for (int i = 0; i < 100 ; i++)
-			{
+
+	public void run() {
+		try {
+			// Ñ­ï¿½ï¿½100ï¿½Î£ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½100ï¿½ï¿½ï¿½Ö·ï¿½
+			for (int i = 0; i < 100; i++) {
 				pw.write(books[i % 4] + "\n");
 			}
-		}
-		catch (IOException ex)
-		{
+		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
-		//Ê¹ÓÃfinally¿éÀ´¹Ø±Õ¹ÜµÀÊä³öÁ÷
-		finally
-		{
-			try
-			{
-				if (pw != null)
-				{
+		// Ê¹ï¿½ï¿½finallyï¿½ï¿½ï¿½ï¿½ï¿½Ø±Õ¹Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		finally {
+			try {
+				if (pw != null) {
 					pw.close();
 				}
-			}
-			catch (IOException ex)
-			{
+			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
 		}
 	}
 }
 
-public class PipedCommunicationTest
-{
-	public static void main(String[] args)
-	{
+public class PipedCommunicationTest {
+	public static void main(String[] args) {
 		PipedWriter pw = null;
 		PipedReader pr = null;
-		try
-		{
-			//·Ö±ð´´½¨Á½¸ö¶ÀÁ¢µÄ¹ÜµÀÊä³öÁ÷¡¢ÊäÈëÁ÷
+		try {
+			// ï¿½Ö±ð´´½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¹Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			pw = new PipedWriter();
 			pr = new PipedReader();
-			//Á¬½Ó¹ÜµÀÊä³öÁ÷¡¢³öÈëÁ÷
+			// ï¿½ï¿½ï¿½Ó¹Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			pw.connect(pr);
 
-			//½«Á¬½ÓºÃµÄ¹ÜµÀÁ÷·Ö±ð´«Èë2¸öÏß³Ì£¬
-			//¾Í¿ÉÒÔÈÃÁ½¸öÏß³ÌÍ¨¹ý¹ÜµÀÁ÷½øÐÐÍ¨ÐÅ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ÓºÃµÄ¹Üµï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½ß³Ì£ï¿½
+			// ï¿½Í¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½Í¨ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½
 			new WriterThread(pw).start();
 			new ReaderThread(pr).start();
-		}
-		catch (IOException ex)
-		{
+		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 	}
