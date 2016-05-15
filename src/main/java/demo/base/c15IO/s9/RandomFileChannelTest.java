@@ -6,21 +6,12 @@ import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
-/**
- * Description: <br/>
- * Copyright (C), 2005-2008, Yeeku.H.Lee <br/>
- * This program is protected by copyright laws. <br/>
- * Program Name: <br/>
- * Date:
- * 
- * @author Yeeku.H.Lee kongyeeku@163.com
- * @version 1.0
- */
 public class RandomFileChannelTest {
 	public static void main(String[] args) {
 		FileChannel randomChannel = null;
 		try {
-			File f = new File("a.txt");
+			File f = new File(
+					"E:/Code/MyGitProject/Test/src/main/java/demo/base/c15IO/s9/a.txt");
 			// 创建一个RandomAccessFile对象
 			RandomAccessFile raf = new RandomAccessFile(f, "rw");
 			// 获取RandomAccessFile对应的Channel

@@ -5,16 +5,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-/**
- * Description: <br/>
- * Copyright (C), 2005-2008, Yeeku.H.Lee <br/>
- * This program is protected by copyright laws. <br/>
- * Program Name: <br/>
- * Date:
- * 
- * @author Yeeku.H.Lee kongyeeku@163.com
- * @version 1.0
- */
 public class WriteToProcess {
 	public static void main(String[] args) {
 		PrintStream ps = null;
@@ -43,7 +33,9 @@ class ReadStandard {
 
 		// 使用System.in创建Scanner对象，用于获取标准输入
 		Scanner sc = new Scanner(System.in);
-		PrintStream ps = new PrintStream(new FileOutputStream("out.txt"));
+		PrintStream ps = new PrintStream(
+				new FileOutputStream(
+						"E:/Code/MyGitProject/Test/src/main/java/demo/base/c15IO/s6/out.txt"));
 		// 增加下面一行将只把回车作为分隔符
 		sc.useDelimiter("\n");
 		// 判断是否还有下一个输入项

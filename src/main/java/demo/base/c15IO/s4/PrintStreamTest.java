@@ -4,22 +4,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
-/**
- * Description: <br/>
- * Copyright (C), 2005-2008, Yeeku.H.Lee <br/>
- * This program is protected by copyright laws. <br/>
- * Program Name: <br/>
- * Date:
- * 
- * @author Yeeku.H.Lee kongyeeku@163.com
- * @version 1.0
- */
 public class PrintStreamTest {
 	public static void main(String[] args) throws IOException {
 		PrintStream ps = null;
 		try {
 			// 创建一个节点输出流：FileOutputStream
-			FileOutputStream fos = new FileOutputStream("test.txt");
+			FileOutputStream fos = new FileOutputStream(
+					"E:/Code/MyGitProject/Test/src/main/java/demo/base/c15IO/s4/test.txt");
 			// 以PrintStream来包装FileOutputStream输出流
 			ps = new PrintStream(fos);
 			// 使用PrintStream执行输出

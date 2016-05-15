@@ -19,7 +19,9 @@ public class WriteTeacher {
 		ObjectOutputStream oos = null;
 		try {
 			// 创建一个ObjectOutputStream输出流
-			oos = new ObjectOutputStream(new FileOutputStream("teacher.txt"));
+			oos = new ObjectOutputStream(
+					new FileOutputStream(
+							"E:/Code/MyGitProject/Test/src/main/java/demo/base/c15IO/s8/teacher.txt"));
 			Person per = new Person("孙悟空", 500);
 			Teacher t1 = new Teacher("唐僧", per);
 			Teacher t2 = new Teacher("菩提祖师", per);

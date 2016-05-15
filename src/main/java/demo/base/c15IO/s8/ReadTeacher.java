@@ -19,7 +19,9 @@ public class ReadTeacher {
 		ObjectInputStream ois = null;
 		try {
 			// 创建一个ObjectInputStream输入流
-			ois = new ObjectInputStream(new FileInputStream("teacher.txt"));
+			ois = new ObjectInputStream(
+					new FileInputStream(
+							"E:/Code/MyGitProject/Test/src/main/java/demo/base/c15IO/s8/teacher.txt"));
 			// 依次读取ObjectInputStream输入流中的四个对象
 			Teacher t1 = (Teacher) ois.readObject();
 			Teacher t2 = (Teacher) ois.readObject();

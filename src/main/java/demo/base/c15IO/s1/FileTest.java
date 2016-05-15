@@ -3,14 +3,6 @@ package demo.base.c15IO.s1;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * @author yeeku.H.lee kongyeeku@163.com
- * @version 1.0 <br>
- *          Copyright (C), 2005-2008, yeeku.H.Lee <br>
- *          This program is protected by copyright laws. <br>
- *          Program Name: <br>
- *          Date:
- */
 public class FileTest {
 	public static void main(String[] args) throws IOException {
 		// 以当前路径来创建一个File对象

@@ -1,16 +1,7 @@
 package demo.base.c15IO.s8;
 
-/**
- * Description: <br/>
- * Copyright (C), 2005-2008, Yeeku.H.Lee <br/>
- * This program is protected by copyright laws. <br/>
- * Program Name: <br/>
- * Date:
- * 
- * @author Yeeku.H.Lee kongyeeku@163.com
- * @version 1.0
- */
 public class Teacher implements java.io.Serializable {
+	private static final long serialVersionUID = 4173795010752864322L;
 	private String name;
 	private Person student;
 

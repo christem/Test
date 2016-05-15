@@ -4,25 +4,23 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-/**
- * Description: <br/>
- * Copyright (C), 2005-2008, Yeeku.H.Lee <br/>
- * This program is protected by copyright laws. <br/>
- * Program Name: <br/>
- * Date:
- * 
- * @author Yeeku.H.Lee kongyeeku@163.com
- * @version 1.0
- */
 public class WriteObject {
 	public static void main(String[] args) {
 		ObjectOutputStream oos = null;
 		try {
 			// 创建一个ObjectOutputStream输出流
-			oos = new ObjectOutputStream(new FileOutputStream("object.txt"));
-			Person per = new Person("孙悟空", 500);
+			oos = new ObjectOutputStream(
+					new FileOutputStream(
+							"E:/Code/MyGitProject/Test/src/main/java/demo/base/c15IO/s8/object.txt"));
+			Person per1 = new Person("唐僧", 30);
+			Person per2 = new Person("孙悟空", 1000);
+			Person per3 = new Person("猪八戒", 500);
+			Person per4 = new Person("沙僧", 500);
 			// 将per对象写入输出流
-			oos.writeObject(per);
+			oos.writeObject(per1);
+			oos.writeObject(per2);
+			oos.writeObject(per3);
+			oos.writeObject(per4);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} finally {

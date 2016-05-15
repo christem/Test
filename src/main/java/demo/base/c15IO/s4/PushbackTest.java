@@ -4,22 +4,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PushbackReader;
 
-/**
- * Description: <br/>
- * Copyright (C), 2005-2008, Yeeku.H.Lee <br/>
- * This program is protected by copyright laws. <br/>
- * Program Name: <br/>
- * Date:
- * 
- * @author Yeeku.H.Lee kongyeeku@163.com
- * @version 1.0
- */
 public class PushbackTest {
 	public static void main(String[] args) {
 		PushbackReader pr = null;
 		try {
 			// 创建一个PushbackReader对象，指定推回缓冲区的长度为64
-			pr = new PushbackReader(new FileReader("PushbackTest.java"), 64);
+			pr = new PushbackReader(new FileReader("E:/Code/MyGitProject/Test/src/main/java/demo/base/c15IO/s4/PushbackTest.java"), 64);
 			char[] buf = new char[32];
 			// 用以保存上次读取的字符串内容
 			String lastContent = "";

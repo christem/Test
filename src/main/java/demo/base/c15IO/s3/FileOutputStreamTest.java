@@ -4,32 +4,27 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-/**
- * Description: <br/>
- * Copyright (C), 2005-2008, Yeeku.H.Lee <br/>
- * This program is protected by copyright laws. <br/>
- * Program Name: <br/>
- * Date:
- * 
- * @author Yeeku.H.Lee kongyeeku@163.com
- * @version 1.0
- */
 public class FileOutputStreamTest {
 	public static void main(String[] args) throws IOException {
 		FileInputStream fis = null;
 		FileOutputStream fos = null;
 		try {
 			// 创建字节输入流
-			fis = new FileInputStream("FileOutputStreamTest.java");
+			fis = new FileInputStream(
+					"E:/Code/MyGitProject/Test/src/main/java/demo/base/c15IO/s3/FileOutputStreamTest.java");
 			// 创建字节输入流
-			fos = new FileOutputStream("newFile.txt");
+			fos = new FileOutputStream(
+					"./src/main/java/demo/base/c15IO/s3/newFile.txt");
 			byte[] bbuf = new byte[32];
 			int hasRead = 0;
+			int total = 0;
 			// 循环从输入流中取出数据
 			while ((hasRead = fis.read(bbuf)) > 0) {
+				total += hasRead;
 				// 每读取一次，即写入文件输出流，读了多少，就写多少。
 				fos.write(bbuf, 0, hasRead);
 			}
+			System.out.print("总共有：" + total);
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		} finally {

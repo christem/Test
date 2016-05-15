@@ -4,21 +4,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
-/**
- * Description: <br/>
- * Copyright (C), 2005-2008, Yeeku.H.Lee <br/>
- * This program is protected by copyright laws. <br/>
- * Program Name: <br/>
- * Date:
- * 
- * @author Yeeku.H.Lee kongyeeku@163.com
- * @version 1.0
- */
 public class RedirectOut {
 	public static void main(String[] args) {
 		PrintStream ps = null;
 		try {
-			ps = new PrintStream(new FileOutputStream("out.txt"));
+			ps = new PrintStream(
+					new FileOutputStream(
+							"E:/Code/MyGitProject/Test/src/main/java/demo/base/c15IO/s5/out.txt"));
 			// 将标准输出重定向到ps输出流
 			System.setOut(ps);
 			// 向标准输出输出一个字符串

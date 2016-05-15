@@ -20,7 +20,7 @@ public class TestYield extends Thread {
 
 	// 定义run方法作为线程执行体
 	public void run() {
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 100; i++) {
 			System.out.println(getName() + "  " + i);
 			// 当i等于20时，使用yield方法让当前线程让步
 			if (i == 20) {

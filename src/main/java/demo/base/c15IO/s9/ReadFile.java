@@ -8,22 +8,14 @@ import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 
-/**
- * Description: <br/>
- * Copyright (C), 2005-2008, Yeeku.H.Lee <br/>
- * This program is protected by copyright laws. <br/>
- * Program Name: <br/>
- * Date:
- * 
- * @author Yeeku.H.Lee kongyeeku@163.com
- * @version 1.0
- */
 public class ReadFile {
 	public static void main(String[] args) {
 		FileChannel fcin = null;
+		FileInputStream fis = null;
 		try {
 			// 创建文件输入流
-			FileInputStream fis = new FileInputStream("ReadFile.java");
+			fis = new FileInputStream(
+					"E:/Code/MyGitProject/Test/src/main/java/demo/base/c15IO/s9/ReadFile.java");
 			// 创建一个FileChannel
 			fcin = fis.getChannel();
 			// 定义一个ByteBuffer对象，用于重复取水
@@ -45,12 +37,15 @@ public class ReadFile {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} finally {
+
 			try {
 				if (fcin != null)
 					fcin.close();
+				fis.close();
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
+
 		}
 	}
 }

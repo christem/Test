@@ -3,16 +3,6 @@ package demo.base.c15IO.s9;
 import java.nio.charset.Charset;
 import java.util.SortedMap;
 
-/**
- * Description: <br/>
- * Copyright (C), 2008-2010, Yeeku.H.Lee <br/>
- * This program is protected by copyright laws. <br/>
- * Program Name: <br/>
- * Date:
- * 
- * @author Yeeku.H.Lee kongyeeku@163.com
- * @version 1.0
- */
 public class CharsetTest {
 	public static void main(String[] args) {
 		// 获取全部字符集

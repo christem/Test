@@ -10,22 +10,13 @@ import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 
-/**
- * Description: <br/>
- * Copyright (C), 2005-2008, Yeeku.H.Lee <br/>
- * This program is protected by copyright laws. <br/>
- * Program Name: <br/>
- * Date:
- * 
- * @author Yeeku.H.Lee kongyeeku@163.com
- * @version 1.0
- */
 public class FileChannelTest {
 	public static void main(String[] args) {
 		FileChannel inChannel = null;
 		FileChannel outChannel = null;
 		try {
-			File f = new File("FileChannelTest.java");
+			File f = new File(
+					"E:/Code/MyGitProject/Test/src/main/java/demo/base/c15IO/s9/FileChannelTest.java");
 			// 创建FileInputStream，以该文件输入流创建FileChannel
 			inChannel = new FileInputStream(f).getChannel();
 			// 将FileChannel里的全部数据映射成ByteBuffer
@@ -34,7 +25,9 @@ public class FileChannelTest {
 			// 使用GBK的字符集来创建解码器
 			Charset charset = Charset.forName("GBK");
 			// 以文件输出流创建FileBuffer，用以控制输出
-			outChannel = new FileOutputStream("a.txt").getChannel();
+			outChannel = new FileOutputStream(
+					"E:/Code/MyGitProject/Test/src/main/java/demo/base/c15IO/s9/a.txt")
+					.getChannel();
 			// 直接将buffer里的数据全部输出
 			outChannel.write(buffer);
 			// 再次调用buffer的clear()方法，复原limit、position的位置
@@ -45,6 +38,16 @@ public class FileChannelTest {
 			CharBuffer charBuffer = decoder.decode(buffer);
 			// CharBuffer的toString方法可以获取对应的字符串
 			System.out.println(charBuffer);
+
+			System.out.println("以下是FileInputStream输出数据：");
+			FileInputStream fis = new FileInputStream(
+					"E:/Code/MyGitProject/Test/src/main/java/demo/base/c15IO/s9/FileChannelTest.java");
+			byte[] b = new byte[1024];
+			int hasRead = 0;
+			while ((hasRead = fis.read(b)) > 0) {
+				System.out.println(new String(b, 0, hasRead));
+			}
+
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} finally {

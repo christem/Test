@@ -3,22 +3,12 @@ package demo.base.c15IO.s3;
 import java.io.FileWriter;
 import java.io.IOException;
 
-/**
- * Description: <br/>
- * Copyright (C), 2005-2008, Yeeku.H.Lee <br/>
- * This program is protected by copyright laws. <br/>
- * Program Name: <br/>
- * Date:
- * 
- * @author Yeeku.H.Lee kongyeeku@163.com
- * @version 1.0
- */
 public class FileWriterTest {
 	public static void main(String[] args) throws IOException {
 		FileWriter fw = null;
 		try {
 			// 创建字符输出流
-			fw = new FileWriter("poem.txt");
+			fw = new FileWriter("./src/main/java/demo/base/c15IO/s3/poem.txt");
 			fw.write("锦瑟 - 李商隐\r\n");
 			fw.write("锦瑟无端五十弦，一弦一柱思华年。\r\n");
 			fw.write("庄生晓梦迷蝴蝶，望帝春心托杜鹃。\r\n");

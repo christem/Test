@@ -13,7 +13,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
-import net.sf.json.JSONException;
+
 import net.sf.json.JSONObject;
 
 public class TemplateTest {

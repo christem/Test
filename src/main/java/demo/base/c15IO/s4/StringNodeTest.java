@@ -4,16 +4,6 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-/**
- * Description: <br/>
- * Copyright (C), 2005-2008, Yeeku.H.Lee <br/>
- * This program is protected by copyright laws. <br/>
- * Program Name: <br/>
- * Date:
- * 
- * @author Yeeku.H.Lee kongyeeku@163.com
- * @version 1.0
- */
 public class StringNodeTest {
 	public static void main(String[] args) {
 		String src = "从明天起，做一个幸福的人\n" + "喂马，劈柴，周游世界\n" + "从明天起，关心粮食和蔬菜\n"
