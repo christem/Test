@@ -1,0 +1,10 @@
+Thread0进入lock
+Thread3进入lock
+Thread4进入lock
+Thread1进入lock
+Thread2进入lock
+Thread3进入lock
+Thread0进入lock
+Thread1进入lock
+Thread4进入lock
+Thread2进入lock
