@@ -4,16 +4,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * @author yeeku.H.lee kongyeeku@163.com
- * @version 1.0 <br>
- *          Copyright (C), 2005-2008, yeeku.H.Lee <br>
- *          This program is protected by copyright laws. <br>
- *          Program Name: <br>
- *          Date:
- */
-// 扩展HashMap类，MyMap类要求value也不可重复
-public class YeekuMap<K, V> extends HashMap<K, V> {
+// 扩展HashMap类，CrazyitMap类要求value也不可重复
+public class CrazyitMap<K, V> extends HashMap<K, V> {
+	private static final long serialVersionUID = 5458691405462219040L;
+
 	// 根据value来删除指定项
 	public void removeByValue(Object value) {
 		for (Object key : keySet()) {

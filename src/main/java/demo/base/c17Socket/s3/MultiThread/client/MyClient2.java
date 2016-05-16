@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 
-public class MyClient {
+public class MyClient2 {
 	public static void main(String[] args) throws IOException {
 		Socket s = s = new Socket("127.0.0.1", 30000);
 		// 客户端启动ClientThread线程不断读取来自服务器的数据

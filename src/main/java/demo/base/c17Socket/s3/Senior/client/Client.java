@@ -9,17 +9,8 @@ import java.net.UnknownHostException;
 
 import javax.swing.JOptionPane;
 
-/**
- * @author yeeku.H.lee kongyeeku@163.com
- * @version 1.0 <br>
- *          Copyright (C), 2005-2008, yeeku.H.Lee <br>
- *          This program is protected by copyright laws. <br>
- *          Program Name: <br>
- *          Date:
- */
 public class Client {
 	private static final int SERVER_PORT = 30000;
-
 	private Socket socket;
 	private PrintStream ps;
 	private BufferedReader brServer;
@@ -38,19 +29,19 @@ public class Client {
 			String tip = "";
 			// 采用循环不断地弹出对话框要求输入用户名
 			while (true) {
-				String userName = JOptionPane.showInputDialog(tip + "输入用户名");
+				String userName = JOptionPane.showInputDialog(tip + "输入用户名"); // ①
 				// 将用户输入的用户名的前后增加协议字符串后发送
-				ps.println(YeekuProtocol.USER_ROUND + userName
-						+ YeekuProtocol.USER_ROUND);
+				ps.println(CrazyitProtocol.USER_ROUND + userName
+						+ CrazyitProtocol.USER_ROUND);
 				// 读取服务器的响应
 				String result = brServer.readLine();
 				// 如果用户重复，开始下次循环
-				if (result.equals(YeekuProtocol.NAME_REP)) {
+				if (result.equals(CrazyitProtocol.NAME_REP)) {
 					tip = "用户名重复！请重新";
 					continue;
 				}
-				// 如果服务器返回登陆成功，结束循环
-				if (result.equals(YeekuProtocol.LOGIN_SUCCESS)) {
+				// 如果服务器返回登录成功，结束循环
+				if (result.equals(CrazyitProtocol.LOGIN_SUCCESS)) {
 					break;
 				}
 			}
@@ -61,7 +52,7 @@ public class Client {
 			closeRs();
 			System.exit(1);
 		} catch (IOException ex) {
-			System.out.println("网络异常！请重新登陆！");
+			System.out.println("网络异常！请重新登录！");
 			closeRs();
 			System.exit(1);
 		}
@@ -75,22 +66,22 @@ public class Client {
 			// 不断读取键盘输入
 			String line = null;
 			while ((line = keyIn.readLine()) != null) {
-				// 如果发送的信息中有冒号，且以//开头，则认为想发送私聊信息
-				if (line.indexOf(":") > 0 && line.startsWith("//")) {
-					line = line.substring(2);
-					// 冒号之前的是私聊用户，冒号之后的是聊天信息
-					ps.println(YeekuProtocol.PRIVATE_ROUND + line.split(":")[0]
-							+ YeekuProtocol.SPLIT_SIGN + line.split(":")[1]
-							+ YeekuProtocol.PRIVATE_ROUND);
+				// 如果发送的信息中有冒号，且以/开头，则认为想发送私聊信息
+				if (line.indexOf(":") > 0 && line.startsWith("/")) {
+					line = line.substring(1);
+					ps.println(CrazyitProtocol.PRIVATE_ROUND
+							+ line.split(":")[0] + CrazyitProtocol.SPLIT_SIGN
+							+ line.split(":")[1]
+							+ CrazyitProtocol.PRIVATE_ROUND);
 				} else {
-					ps.println(YeekuProtocol.MSG_ROUND + line
-							+ YeekuProtocol.MSG_ROUND);
+					ps.println(CrazyitProtocol.MSG_ROUND + line
+							+ CrazyitProtocol.MSG_ROUND);
 				}
 			}
 		}
 		// 捕捉到异常，关闭网络资源，并退出该程序
 		catch (IOException ex) {
-			System.out.println("网络通信异常！请重新登陆！");
+			System.out.println("网络通信异常！请重新登录！");
 			closeRs();
 			System.exit(1);
 		}

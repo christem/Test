@@ -6,14 +6,6 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 
-/**
- * @author yeeku.H.lee kongyeeku@163.com
- * @version 1.0 <br>
- *          Copyright (C), 2005-2008, yeeku.H.Lee <br>
- *          This program is protected by copyright laws. <br>
- *          Program Name: <br>
- *          Date:
- */
 public class ServerThread extends Thread {
 	private Socket socket;
 	BufferedReader br = null;
@@ -35,29 +27,29 @@ public class ServerThread extends Thread {
 			while ((line = br.readLine()) != null) {
 				// 如果读到的行以MyProtocol.USER_ROUND开始，并以其结束，
 				// 可以确定读到的是用户登陆的用户名
-				if (line.startsWith(YeekuProtocol.USER_ROUND)
-						&& line.endsWith(YeekuProtocol.USER_ROUND)) {
+				if (line.startsWith(CrazyitProtocol.USER_ROUND)
+						&& line.endsWith(CrazyitProtocol.USER_ROUND)) {
 					// 得到真实消息
 					String userName = getRealMsg(line);
 					// 如果用户名重复
 					if (Server.clients.containsKey(userName)) {
 						System.out.println("重复");
-						ps.println(YeekuProtocol.NAME_REP);
+						ps.println(CrazyitProtocol.NAME_REP);
 					} else {
 						System.out.println("成功");
-						ps.println(YeekuProtocol.LOGIN_SUCCESS);
+						ps.println(CrazyitProtocol.LOGIN_SUCCESS);
 						Server.clients.put(userName, ps);
 					}
 				}
 				// 如果读到的行以YeekuProtocol.PRIVATE_ROUND开始，并以其结束，
 				// 可以确定是私聊信息，私聊信息只向特定的输出流发送
-				else if (line.startsWith(YeekuProtocol.PRIVATE_ROUND)
-						&& line.endsWith(YeekuProtocol.PRIVATE_ROUND)) {
+				else if (line.startsWith(CrazyitProtocol.PRIVATE_ROUND)
+						&& line.endsWith(CrazyitProtocol.PRIVATE_ROUND)) {
 					// 得到真实消息
 					String userAndMsg = getRealMsg(line);
 					// 以SPLIT_SIGN来分割字符串，前面部分是私聊用户，后面部分是聊天信息
-					String user = userAndMsg.split(YeekuProtocol.SPLIT_SIGN)[0];
-					String msg = userAndMsg.split(YeekuProtocol.SPLIT_SIGN)[1];
+					String user = userAndMsg.split(CrazyitProtocol.SPLIT_SIGN)[0];
+					String msg = userAndMsg.split(CrazyitProtocol.SPLIT_SIGN)[1];
 					// 获取私聊用户对应的输出流，并发送私聊信息
 					Server.clients.get(user).println(
 							Server.clients.getKeyByValue(ps) + "悄悄地对你说：" + msg);
@@ -98,7 +90,7 @@ public class ServerThread extends Thread {
 
 	// 将读到的内容去掉前后的协议字符，恢复成真实数据
 	public String getRealMsg(String line) {
-		return line.substring(YeekuProtocol.PROTOCOL_LEN, line.length()
-				- YeekuProtocol.PROTOCOL_LEN);
+		return line.substring(CrazyitProtocol.PROTOCOL_LEN, line.length()
+				- CrazyitProtocol.PROTOCOL_LEN);
 	}
 }

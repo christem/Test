@@ -6,14 +6,6 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 
-/**
- * @author yeeku.H.lee kongyeeku@163.com
- * @version 1.0 <br>
- *          Copyright (C), 2005-2008, yeeku.H.Lee <br>
- *          This program is protected by copyright laws. <br>
- *          Program Name: <br>
- *          Date:
- */
 // 负责处理每个线程通信的线程类
 public class ServerThread implements Runnable {
 	// 定义当前线程所处理的Socket
@@ -37,6 +29,7 @@ public class ServerThread implements Runnable {
 				for (Socket s : MyServer.socketList) {
 					PrintStream ps = new PrintStream(s.getOutputStream());
 					ps.println(content);
+					System.out.println("被转发的消息是:"+content);
 				}
 			}
 		} catch (IOException e) {
