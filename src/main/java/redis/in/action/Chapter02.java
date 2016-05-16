@@ -8,11 +8,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import com.google.gson.Gson;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Tuple;
 
-
+import com.google.gson.Gson;
 
 public class Chapter02 {
     public static final void main(String[] args) throws InterruptedException {
