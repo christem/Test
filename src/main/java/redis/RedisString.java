@@ -6,10 +6,7 @@ public class RedisString {
 
     public static void main(String[] args) {
 	// 连接本地的 Redis 服务
-	Jedis jedis = new Jedis("localhost");
-	System.out.println("Connection to server sucessfully");
-	jedis.auth("redis");
-	jedis.select(14);
+	Jedis jedis = RedisUtil.getJedis();
 	// 1.字符添加(Append)
 	// System.out.println(jedis.set("test", "hello"));
 	// System.out.println(jedis.append("test", " redis"));
@@ -49,9 +46,9 @@ public class RedisString {
 	// System.out.println(jedis.setrange("test1", 11, "abcde"));
 	// System.out.println(jedis.get("test1"));
 
-	//6.strlen
+	// 6.strlen
 	System.out.println(jedis.set("test1", "0123456789"));
 	System.out.println(jedis.strlen("test1"));
-	jedis.close();
+	RedisUtil.returnResource(jedis);
     }
 }

@@ -8,10 +8,7 @@ public class RedisSortedSets {
 
     public static void main(String[] args) {
 	// 连接本地的 Redis 服务
-	Jedis jedis = new Jedis("localhost");
-	// System.out.println("Connection to server sucessfully");
-	jedis.auth("redis");
-	jedis.select(14);
+	Jedis jedis = RedisUtil.getJedis();
 
 	System.out.println(jedis.zadd("sort-sets:test1", 1, "test1"));
 	System.out.println(jedis.zadd("sort-sets:test1", 2, "test2"));
@@ -50,6 +47,6 @@ public class RedisSortedSets {
 	System.out.println(jedis.zrevrank("sort-sets:test1", "test4"));
 	System.out.println(jedis.zrevrank("sort-sets:test1", "test1"));
 	System.out.println(jedis.zscore("sort-sets:test1", "test4"));
-	jedis.close();
+	RedisUtil.returnResource(jedis);
     }
 }

@@ -6,11 +6,7 @@ public class RedisSets {
 
     public static void main(String[] args) {
 	// 连接本地的 Redis 服务
-	Jedis jedis = new Jedis("localhost");
-	System.out.println("Connection to server sucessfully");
-	jedis.auth("redis");
-	jedis.select(14);
-
+	Jedis jedis = RedisUtil.getJedis();
 	// System.out.println(jedis.sadd("sets:test1", "a"));
 	// System.out.println(jedis.sadd("sets:test1", "b"));
 	// System.out.println(jedis.sadd("sets:test1", "c"));
@@ -62,7 +58,6 @@ public class RedisSets {
 	System.out.println(jedis.smembers("sets:test1"));
 	System.out.println(jedis.sunionstore("sets:test4", "h", "i", "j"));
 	System.out.println(jedis.smembers("sets:test4"));
-
-	jedis.close();
+	RedisUtil.returnResource(jedis);
     }
 }

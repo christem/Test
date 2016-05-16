@@ -6,10 +6,7 @@ public class RedisHashes {
 
     public static void main(String[] args) {
 	// 连接本地的 Redis 服务
-	Jedis jedis = new Jedis("localhost");
-	System.out.println("Connection to server sucessfully");
-	jedis.auth("redis");
-	jedis.select(14);
+	Jedis jedis = RedisUtil.getJedis();
 
 	//
 	System.out.println(jedis.hset("hashes:test1", "1", "test1"));
@@ -29,6 +26,7 @@ public class RedisHashes {
 	System.out.println(jedis.hlen("hashes:test1"));
 	System.out.println(jedis.hdel("hashes:test1", "1"));
 	System.out.println(jedis.hlen("hashes:test1"));
-	jedis.close();
+
+	RedisUtil.returnResource(jedis);
     }
 }

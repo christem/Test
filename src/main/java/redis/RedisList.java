@@ -7,11 +7,7 @@ public class RedisList {
 
     public static void main(String[] args) {
 	// 连接本地的 Redis 服务
-	Jedis jedis = new Jedis("localhost");
-	System.out.println("Connection to server sucessfully");
-	jedis.auth("redis");
-	jedis.select(14);
-
+	Jedis jedis = RedisUtil.getJedis();
 	System.out.println(jedis.rpushx("list:test1", "error"));
 	System.out.println(jedis.rpush("list:test1", "test0"));
 	System.out.println(jedis.rpush("list:test1", "test2"));
@@ -35,6 +31,6 @@ public class RedisList {
 	System.out.println(jedis.lrange("list:test1", 0, -1));
 	System.out.println(jedis.ltrim("list:test1", 1, -1));
 	System.out.println(jedis.lrange("list:test1", 0, -1));
-	jedis.close();
+	RedisUtil.returnResource(jedis);
     }
 }
