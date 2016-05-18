@@ -10,16 +10,6 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
 
-/**
- * Description: <br/>
- * Copyright (C), 2008-2010, Yeeku.H.Lee <br/>
- * This program is protected by copyright laws. <br/>
- * Program Name: <br/>
- * Date:
- * 
- * @author Yeeku.H.Lee kongyeeku@163.com
- * @version 1.0
- */
 public class NServer {
 	// 用于检测所有Channel状态的Selector
 	private Selector selector = null;
@@ -37,7 +27,7 @@ public class NServer {
 		server.configureBlocking(false);
 		// 将server注册到指定Selector对象
 		server.register(selector, SelectionKey.OP_ACCEPT);
-		while (selector.select() > 0) {
+		while (selector.select() > 0) {// 有可用的io操作，若无则调用该方法的线程阻塞
 			// 依次处理selector上的每个已选择的SelectionKey
 			for (SelectionKey sk : selector.selectedKeys()) {
 				// 从selector上的已选择Key集中删除正在处理的SelectionKey
@@ -86,6 +76,8 @@ public class NServer {
 						for (SelectionKey key : selector.keys()) {
 							// 获取该key对应的Channel
 							Channel targetChannel = key.channel();
+							System.out.println(targetChannel.getClass()
+									.getCanonicalName());
 							// 如果该channel是SocketChannel对象
 							if (targetChannel instanceof SocketChannel) {
 								// 将读到的内容写入该Channel中
