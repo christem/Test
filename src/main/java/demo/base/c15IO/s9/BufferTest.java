@@ -58,10 +58,7 @@ public class BufferTest {
 	System.out.println("执行绝对读取后，position = " + buff.position());// 0
     }
 
-    public static void main(String[] args) {
-	// testCharBuffer();
-	// testByteBuffer();
-
+    public static void test3() {
 	// 创建CharBuffer
 	CharBuffer buff = CharBuffer.allocate(8); // 1
 	System.out.println("capacity: " + buff.capacity());// 8
@@ -97,6 +94,39 @@ public class BufferTest {
 	while (buff.hasRemaining()) {
 	    System.out.println("元素:" + buff.get());
 	}
+	System.out.println("直接获取元素:" + buff.get(1));
+    }
 
+    public static void main(String[] args) {
+	// testCharBuffer();
+	// testByteBuffer();
+	// test3();
+
+	CharBuffer buffer = CharBuffer.allocate(16);
+	buffer.put('a').put('b').put('c').put('d').put('e').put('f').put('g');
+	System.out.println("1 position:" + buffer.position());
+	System.out.println("1 limit:" + buffer.limit());
+	buffer.flip();
+	System.out.println(buffer.get());
+
+	System.out.println("2 position:" + buffer.position());
+	System.out.println("2 limit:" + buffer.limit());
+
+	System.out.println(buffer.get(0));
+	System.out.println("3 position:" + buffer.position());
+	System.out.println("3 limit:" + buffer.limit());
+
+	System.out.println(buffer.get(5));
+	System.out.println("4 position:" + buffer.position());
+	System.out.println("4 limit:" + buffer.limit());
+
+	buffer.clear();
+	System.out.println(buffer.remaining());
+	char[] test = new char[32];
+	System.out.println(buffer.get(test, 0, buffer.remaining()));
+	System.out.println(new String(test));
+
+	System.out.println("5 position:" + buffer.position());
+	System.out.println("5 limit:" + buffer.limit());
     }
 }
