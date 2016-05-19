@@ -9,7 +9,7 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
 import java.util.Scanner;
 
-public class NClient {
+public class NClient2 {
 	// 定义检测SocketChannel的Selector对象
 	private Selector selector = null;
 	// 定义处理编码和解码的字符集
@@ -27,7 +27,7 @@ public class NClient {
 		// 将SocketChannel对象注册到指定Selector
 		sc.register(selector, SelectionKey.OP_READ);
 		// 启动读取服务器端数据的线程
-		new ClientThread().start();
+		new ClientThread2().start();
 		// 创建键盘输入流
 		Scanner scan = new Scanner(System.in);
 		while (scan.hasNextLine()) {
@@ -39,10 +39,10 @@ public class NClient {
 	}
 
 	// 定义读取服务器数据的线程
-	private class ClientThread extends Thread {
+	private class ClientThread2 extends Thread {
 		public void run() {
 			try {
-				while (selector.select() > 0) {// 有可用的io操作，若无则调用该方法的线程阻塞
+				while (selector.select() > 0) {
 					// 遍历每个有可用IO操作Channel对应的SelectionKey
 					for (SelectionKey sk : selector.selectedKeys()) {
 						// 删除正在处理的SelectionKey
@@ -72,6 +72,6 @@ public class NClient {
 	}
 
 	public static void main(String[] args) throws IOException {
-		new NClient().init();
+		new NClient2().init();
 	}
 }
