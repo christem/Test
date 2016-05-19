@@ -86,5 +86,16 @@
 			<artifactId>kafka_2.11</artifactId>
 			<version>0.9.0.0</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>4.12</version>
+		</dependency>
+		<dependency>
+		 <groupId>org.redisson</groupId>
+    <artifactId>redisson</artifactId>
+    <version>2.2.14-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

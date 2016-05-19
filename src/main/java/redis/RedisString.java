@@ -47,8 +47,25 @@ public class RedisString {
 	// System.out.println(jedis.get("test1"));
 
 	// 6.strlen
-	System.out.println(jedis.set("test1", "0123456789"));
-	System.out.println(jedis.strlen("test1"));
+	// System.out.println(jedis.set("str1", "test1"));
+	// // System.out.println(jedis.strlen("test1"));
+	// System.out.println(jedis.setnx("str1", "test2"));
+	// System.out.println(jedis.setnx("str2", "test3"));
+	// System.out.println(jedis.setnx("str1", "test1"));
+	// System.out.println(jedis.getSet("str1", "test2"));
+	// System.out.println(jedis.getSet("str2", "test3"));
+	int timemills = 15;
+	System.out.println(jedis.expire("str2", timemills));
+	try {
+	    while (timemills > 0) {
+		timemills = jedis.ttl("str2") != null ? jedis.ttl("str2").intValue() : 0;
+		Thread.sleep(500);
+		System.out.println(timemills);
+	    }
+	} catch (InterruptedException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
 	RedisUtil.returnResource(jedis);
     }
 }
