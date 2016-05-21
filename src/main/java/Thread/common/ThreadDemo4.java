@@ -1,4 +1,4 @@
-package current.common;
+package Thread.common;
 
 class Person {
 	public String name;
@@ -73,8 +73,7 @@ public class ThreadDemo4 {
 	}
 
 	/*
-	 *线程等待唤醒机制
-	 *等待和唤醒必须是同一把锁 
+	 * 线程等待唤醒机制等待和唤醒必须是同一把锁
 	 */
 	static void test3() {
 		final Person p = new Person();

@@ -1,4 +1,4 @@
-package current.common;
+package Thread.common;
 
 public class ThreadDemo6 {
 	private static boolean flags = false;

@@ -9,16 +9,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
 
-/**
- * Description: <br/>
- * Copyright (C), 2008-2010, Yeeku.H.Lee <br/>
- * This program is protected by copyright laws. <br/>
- * Program Name: <br/>
- * Date:
- * 
- * @author Yeeku.H.Lee kongyeeku@163.com
- * @version 1.0
- */
 public class ProxyTest {
 	Proxy proxy;
 	URL url;
@@ -28,7 +18,7 @@ public class ProxyTest {
 	PrintStream ps;
 	// 下面是代理服务器的地址和端口，
 	// 换成实际有效的代理服务器的地址和端口
-	String proxyAddress = "202.128.23.32";
+	String proxyAddress = "118.249.118.63";
 	int proxyPort;
 	// 下面是你试图打开的网站地址
 	String urlStr = "http://www.oneedu.cn";
@@ -45,7 +35,8 @@ public class ProxyTest {
 			conn.setConnectTimeout(5000);
 			scan = new Scanner(conn.getInputStream());
 			// 初始化输出流
-			ps = new PrintStream("Index.htm");
+			ps = new PrintStream(
+					"E:/Code/MyGitProject/Test/src/main/java/demo/base/c17Socket/s5/Index.htm");
 			while (scan.hasNextLine()) {
 				String line = scan.nextLine();
 				// 在控制台输出网页资源内容

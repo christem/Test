@@ -1,4 +1,4 @@
-package current.common;
+package Thread.common;
 
 public class ThreadDemo3 {
 	public static void main(String[] args) {
@@ -35,17 +35,20 @@ class Ticket implements Runnable {
 	}
 }
 
-//同步函数锁是this 静态同步函数锁是class
-class Ticket2 implements Runnable{
-    private int ticket = 4000;
-    public synchronized void  saleTicket(){
-        if(ticket>0)
-            System.out.println(Thread.currentThread().getName()+"卖出了"+ticket--);
+// 同步函数锁是this 静态同步函数锁是class
+class Ticket2 implements Runnable {
+	private int ticket = 4000;
 
-    }
-    public void run(){
-        while(true){
-            saleTicket();
-        }
-    }
+	public synchronized void saleTicket() {
+		if (ticket > 0)
+			System.out.println(Thread.currentThread().getName() + "卖出了"
+					+ ticket--);
+
+	}
+
+	public void run() {
+		while (true) {
+			saleTicket();
+		}
+	}
 }
