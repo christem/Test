@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import redis.RedisUtil;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.Transaction;
@@ -16,14 +17,13 @@ public class Chapter04 {
     }
 
     public void run() {
-	Jedis conn = new Jedis("localhost");
-	conn.select(15);
-
-	testListItem(conn, false);
-	testPurchaseItem(conn);
-	testBenchmarkUpdateToken(conn);
+	Jedis jedis = RedisUtil.getJedis();
+	testListItem(jedis, false);
+	// testPurchaseItem(jedis);
+	// testBenchmarkUpdateToken(jedis);
     }
 
+    // Redis事务处理
     public void testListItem(Jedis conn, boolean nested) {
 	if (!nested) {
 	    System.out.println("\n----- testListItem -----");

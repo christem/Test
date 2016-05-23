@@ -101,32 +101,88 @@ public class BufferTest {
 	// testCharBuffer();
 	// testByteBuffer();
 	// test3();
+	// ****************************************************
+	// 复制
+	// CharBuffer charBuffer = CharBuffer.wrap("Hello World");
+	// System.out.println(charBuffer);
+	// System.out.println(charBuffer.length());
 
-	CharBuffer buffer = CharBuffer.allocate(16);
-	buffer.put('a').put('b').put('c').put('d').put('e').put('f').put('g');
-	System.out.println("1 position:" + buffer.position());
-	System.out.println("1 limit:" + buffer.limit());
-	buffer.flip();
-	System.out.println(buffer.get());
+	// //Duplicate()函数创建了一个与原始缓冲区相似的新缓冲区。两个缓冲区共享数据元素，拥有同样的容量，但每个缓冲区拥有各自的位置，上界和标记属性。对一个缓冲区内的数据元素所做的改变会反映在另外一个缓冲区上。
+	// CharBuffer buffer1 = CharBuffer.allocate(8);
+	// buffer1.position(3).limit(6).mark().position(5);
+	// CharBuffer buffer2 = buffer1.duplicate();
+	// buffer1.position(4);
+	// buffer1.clear();
+	//
+	// System.out.println("1 position:" + buffer1.position());
+	// System.out.println("1 limit:" + buffer1.limit());
+	//
+	// System.out.println("2 position:" + buffer2.position());
+	// System.out.println("2 limit:" + buffer2.limit());
+	// ****************************************************
+	// 割缓冲区与复制相似，但slice()创建一个从原始缓冲区的当前位置开始的新缓冲区，并且其容量是原始缓冲区的剩余元素数量（limit-position）。这个新缓冲区与原始缓冲区共享一段数据元素子序列。分割出来的缓冲区也会继承只读和直接属性。
+	CharBuffer buffer1 = CharBuffer.wrap("Hello World");
+	// buffer1.flip();
+	System.out.println("1 position:" + buffer1.position());
+	System.out.println("1 limit:" + buffer1.limit());
+	System.out.println("1 capacity:" + buffer1.capacity());
+	buffer1.clear();
+	buffer1.position(3).limit(8);
+	CharBuffer buffer2 = buffer1.slice();
+	System.out.println(buffer1);
 
-	System.out.println("2 position:" + buffer.position());
-	System.out.println("2 limit:" + buffer.limit());
+	System.out.println("3 position:" + buffer1.position());
+	System.out.println("3 limit:" + buffer1.limit());
+	System.out.println("3 capacity:" + buffer1.capacity());
 
-	System.out.println(buffer.get(0));
-	System.out.println("3 position:" + buffer.position());
-	System.out.println("3 limit:" + buffer.limit());
+	System.out.println("2 position:" + buffer2.position());
+	System.out.println("2 limit:" + buffer2.limit());
+	System.out.println("2 capacity:" + buffer2.capacity());
+	System.out.println(buffer2);
 
-	System.out.println(buffer.get(5));
-	System.out.println("4 position:" + buffer.position());
-	System.out.println("4 limit:" + buffer.limit());
+	buffer2.clear();
+	// wrap创建buffer为只读因此会报错java.nio.ReadOnlyBufferException
+	// buffer2.put('a');
 
-	buffer.clear();
-	System.out.println(buffer.remaining());
-	char[] test = new char[32];
-	System.out.println(buffer.get(test, 0, buffer.remaining()));
-	System.out.println(new String(test));
-
-	System.out.println("5 position:" + buffer.position());
-	System.out.println("5 limit:" + buffer.limit());
+	// ****************************************************
+	// // 分配空间
+	// CharBuffer buffer = CharBuffer.allocate(16);
+	// // 放入元素
+	// buffer.put('a').put('b').put('c').put('d').put('e').put('f').put('g');
+	// System.out.println("1 position:" + buffer.position());
+	// System.out.println("1 limit:" + buffer.limit());
+	// // 翻转
+	// buffer.flip();
+	// // 获取当前元素
+	// System.out.println(buffer.get());
+	//
+	// System.out.println("2 position:" + buffer.position());
+	// System.out.println("2 limit:" + buffer.limit());
+	//
+	// // 获取第0个元素
+	// System.out.println(buffer.get(0));
+	// System.out.println("3 position:" + buffer.position());
+	// System.out.println("3 limit:" + buffer.limit());
+	//
+	// // 获取第5个元素
+	// System.out.println(buffer.get(5));
+	// System.out.println("4 position:" + buffer.position());
+	// System.out.println("4 limit:" + buffer.limit());
+	//
+	// // 清除缓存空间
+	// buffer.clear();
+	// // 查询缓存空间大小
+	// System.out.println(buffer.remaining());
+	// // 复制数组
+	// char[] test = new char[32];
+	// System.out.println(buffer.get(test, 0, buffer.remaining()));
+	// System.out.println(new String(test));
+	//
+	// System.out.println("5 position:" + buffer.position());
+	// System.out.println("5 limit:" + buffer.limit());
+	// System.out.println(buffer.hasArray());
+	// char[] testArray = buffer.array();
+	// System.out.println(new String(testArray));
+	// System.out.println(testArray.length);
     }
 }
