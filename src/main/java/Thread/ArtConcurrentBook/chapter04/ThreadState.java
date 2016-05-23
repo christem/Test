@@ -24,7 +24,7 @@ public class ThreadState {
      * 该线程不断的进行睡眠
      */
     static class TimeWaiting implements Runnable {
-        @Override
+        
         public void run() {
             while (true) {
                 SleepUtils.second(100);
@@ -36,7 +36,7 @@ public class ThreadState {
      * 该线程在Waiting.class实例上等待
      */
     static class Waiting implements Runnable {
-        @Override
+        
         public void run() {
             while (true) {
                 synchronized (Waiting.class) {
@@ -65,7 +65,7 @@ public class ThreadState {
 
     static class Sync implements Runnable {
 
-        @Override
+        
         public void run() {
             lock.lock();
             try {

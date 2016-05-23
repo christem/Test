@@ -45,7 +45,6 @@ public class Gift {
 	this.probability = probability;
     }
 
-    @Override
     public String toString() {
 	return "Gift [index=" + index + ", gitfId=" + gitfId + ", giftName=" + giftName + ", probability=" + probability
 	        + "]";

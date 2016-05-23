@@ -69,7 +69,7 @@ public class TwinsLock implements Lock {
         return sync.tryAcquireSharedNanos(1, unit.toNanos(time));
     }
 
-    @Override
+    
     public Condition newCondition() {
         return sync.newCondition();
     }
