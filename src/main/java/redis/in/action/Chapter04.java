@@ -17,13 +17,13 @@ public class Chapter04 {
     }
 
     public void run() {
-	Jedis jedis = RedisUtil.getJedis();
-	testListItem(jedis, false);
-	// testPurchaseItem(jedis);
-	// testBenchmarkUpdateToken(jedis);
+	Jedis conn = RedisUtil.getJedis(4);
+	testListItem(conn, false);
+	testPurchaseItem(conn);
+	testBenchmarkUpdateToken(conn);
+	RedisUtil.returnResource(conn);
     }
 
-    // Redis事务处理
     public void testListItem(Jedis conn, boolean nested) {
 	if (!nested) {
 	    System.out.println("\n----- testListItem -----");
@@ -132,7 +132,7 @@ public class Chapter04 {
 	long end = System.currentTimeMillis() + 10000;
 
 	while (System.currentTimeMillis() < end) {
-	    conn.watch("market:", buyer);
+	    conn.watch("market:", buyer);// 监视市场及买家个人信息发生的变化
 
 	    double price = conn.zscore("market:", item);
 	    double funds = Double.parseDouble(conn.hget(buyer, "funds"));
