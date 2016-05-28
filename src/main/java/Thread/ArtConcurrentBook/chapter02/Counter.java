@@ -19,6 +19,8 @@ public class Counter {
 
     private AtomicInteger atomicI = new AtomicInteger(0);
     private int i = 0;
+    private volatile int m = 0;
+    private Integer n = 0;
 
     public static void main(String[] args) {
 	final Counter cas = new Counter();
@@ -30,6 +32,10 @@ public class Counter {
 		    for (int i = 0; i < 10000; i++) {
 			cas.count();
 			cas.safeCount();
+			++cas.m;
+			synchronized (cas.n) {
+			    ++cas.n;
+			}
 		    }
 		}
 	    });
@@ -50,6 +56,8 @@ public class Counter {
 	}
 	System.out.println(cas.i);
 	System.out.println(cas.atomicI.get());
+	System.out.println(cas.m);
+	System.out.println(cas.n);
 	System.out.println(System.currentTimeMillis() - start);
     }
 

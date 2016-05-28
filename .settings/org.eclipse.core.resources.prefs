@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/main/java/Thread/ArtConcurrentBook=gbk
+encoding//src/main/java/Thread/ArtConcurrentBook/chapter03/DoubleCheckedLocking.java=UTF-8
 encoding//src/main/java/demo/base/c15IO=GBK
 encoding//src/main/java/demo/base/c15IO/s9/CharsetTransform.java=GBK
 encoding//src/main/java/demo/base/c17Socket=gbk

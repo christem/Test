@@ -1,11 +1,34 @@
 package common;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Test {
 
     public static void main(String[] args) {
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	// String queryDate = "2015-05-24";
+	//
+	// Date dates;
+	// try {
+	// dates = sdf.parse(queryDate);
+	// System.out.println(dates);
+	// } catch (ParseException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+
+	Calendar cal = Calendar.getInstance();
+	cal.add(Calendar.DATE, -1);
+	String date = sdf.format(cal.getTime());
+	System.out.println(date);
+	// Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+	// map.put(0, 1);
+	// map.put(1, 2);
+	// map.put(10, 3);
+
 	// List<Double> list = new ArrayList<Double>();
 	// list.add(20D);
 	// list.add(50D);

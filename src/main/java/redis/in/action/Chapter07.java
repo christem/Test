@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 
 import org.javatuples.Pair;
 
+import redis.RedisUtil;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.SortingParams;
 import redis.clients.jedis.Transaction;
@@ -45,22 +46,24 @@ public class Chapter07 {
     }
 
     public void run() {
-	Jedis conn = new Jedis("localhost");
-	conn.select(15);
+	Jedis conn = RedisUtil.getJedis(7);
 	conn.flushDB();
 
-	testIndexDocument(conn);
+	// 使用redis进行基本的搜索
+	// testIndexDocument(conn);
 	testSetOperations(conn);
-	testParseQuery(conn);
-	testParseAndSearch(conn);
-	testSearchWithSort(conn);
-	testSearchWithZsort(conn);
-	conn.flushDB();
+	// testParseQuery(conn);
+	// testParseAndSearch(conn);
+	// testSearchWithSort(conn);
+	// testSearchWithZsort(conn);
+	// conn.flushDB();
+	//
+	// testStringToScore(conn);
+	// testIndexAndTargetAds(conn);
+	// testIsQualifiedForJob(conn);
+	// testIndexAndFindJobs(conn);
 
-	testStringToScore(conn);
-	testIndexAndTargetAds(conn);
-	testIsQualifiedForJob(conn);
-	testIndexAndFindJobs(conn);
+	RedisUtil.returnResource(conn);
     }
 
     public void testIndexDocument(Jedis conn) {
@@ -69,16 +72,16 @@ public class Chapter07 {
 	System.out.println("We're tokenizing some content...");
 	Set<String> tokens = tokenize(CONTENT);
 	System.out.println("Those tokens are: " + Arrays.toString(tokens.toArray()));
-	assert tokens.size() > 0;
+	System.out.println(tokens.size());
 
 	System.out.println("And now we are indexing that content...");
 	int count = indexDocument(conn, "test", CONTENT);
-	assert count == tokens.size();
+	System.out.println(count);
 	Set<String> test = new HashSet<String>();
 	test.add("test");
 	for (String t : tokens) {
 	    Set<String> members = conn.smembers("idx:" + t);
-	    assert test.equals(members);
+	    System.out.println(test.equals(members));
 	}
     }
 
@@ -92,27 +95,27 @@ public class Chapter07 {
 	Transaction trans = conn.multi();
 	String id = intersect(trans, 30, "content", "indexed");
 	trans.exec();
-	assert test.equals(conn.smembers("idx:" + id));
+	System.out.println(test.equals(conn.smembers("idx:" + id)));
 
 	trans = conn.multi();
 	id = intersect(trans, 30, "content", "ignored");
 	trans.exec();
-	assert conn.smembers("idx:" + id).isEmpty();
+	System.out.println(conn.smembers("idx:" + id).isEmpty());
 
 	trans = conn.multi();
 	id = union(trans, 30, "content", "ignored");
 	trans.exec();
-	assert test.equals(conn.smembers("idx:" + id));
+	System.out.println(test.equals(conn.smembers("idx:" + id)));
 
 	trans = conn.multi();
 	id = difference(trans, 30, "content", "ignored");
 	trans.exec();
-	assert test.equals(conn.smembers("idx:" + id));
+	System.out.println(test.equals(conn.smembers("idx:" + id)));
 
 	trans = conn.multi();
 	id = difference(trans, 30, "content", "indexed");
 	trans.exec();
-	assert conn.smembers("idx:" + id).isEmpty();
+	System.out.println(conn.smembers("idx:" + id).isEmpty());
     }
 
     public void testParseQuery(Jedis conn) {
@@ -333,9 +336,10 @@ public class Chapter07 {
 
     public Set<String> tokenize(String content) {
 	Set<String> words = new HashSet<String>();
-	Matcher matcher = WORDS_RE.matcher(content);
+	Matcher matcher = WORDS_RE.matcher(content);// 根据定义提取关键字的表达式
 	while (matcher.find()) {
-	    String word = matcher.group().trim();
+	    String word = matcher.group().trim();// 去掉所有单词前后的空格
+	    // 保留至少有两个字符长的关键字
 	    if (word.length() > 2 && !STOP_WORDS.contains(word)) {
 		words.add(word);
 	    }
@@ -344,12 +348,14 @@ public class Chapter07 {
     }
 
     public int indexDocument(Jedis conn, String docid, String content) {
+	// 对内容进行标准化处理，并取得处理产生的单词
 	Set<String> words = tokenize(content);
 	Transaction trans = conn.multi();
 	for (String word : words) {
+	    // 将文档添加到正确的反向索引里面
 	    trans.sadd("idx:" + word, docid);
 	}
-	return trans.exec().size();
+	return trans.exec().size();// 计算添加了多少个反向索引
     }
 
     private String setCommon(Transaction trans, String method, int ttl, String... items) {
@@ -362,6 +368,7 @@ public class Chapter07 {
 	try {
 	    trans.getClass().getDeclaredMethod(method, String.class, String[].class).invoke(trans, "idx:" + id, keys);
 	} catch (Exception e) {
+	    e.printStackTrace();
 	    throw new RuntimeException(e);
 	}
 	trans.expire("idx:" + id, ttl);

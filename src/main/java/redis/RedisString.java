@@ -6,7 +6,7 @@ public class RedisString {
 
     public static void main(String[] args) {
 	// 连接本地的 Redis 服务
-	Jedis jedis = RedisUtil.getJedis();
+	Jedis jedis = RedisUtil.getJedis(1);
 	// 1.字符添加(Append)
 	// System.out.println(jedis.set("test", "hello"));
 	// System.out.println(jedis.append("test", " redis"));
@@ -54,18 +54,25 @@ public class RedisString {
 	// System.out.println(jedis.setnx("str1", "test1"));
 	// System.out.println(jedis.getSet("str1", "test2"));
 	// System.out.println(jedis.getSet("str2", "test3"));
-	int timemills = 15;
-	System.out.println(jedis.expire("str2", timemills));
-	try {
-	    while (timemills > 0) {
-		timemills = jedis.ttl("str2") != null ? jedis.ttl("str2").intValue() : 0;
-		Thread.sleep(500);
-		System.out.println(timemills);
-	    }
-	} catch (InterruptedException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
+	// int timemills = 15;
+	// System.out.println(jedis.expire("str2", timemills));
+	// try {
+	// while (timemills > 0) {
+	// timemills = jedis.ttl("str2") != null ? jedis.ttl("str2").intValue()
+	// : 0;
+	// Thread.sleep(500);
+	// System.out.println(timemills);
+	// }
+	// } catch (InterruptedException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+
+	System.out.println(jedis.set("String:testStr", "test1"));
+	System.out.println(jedis.set("String:testStr", "test2"));
+	System.out.println(jedis.set("String:testStr", "test3"));
+	jedis.expire("String:testStr", 60 * 60 * 2);
+
 	RedisUtil.returnResource(jedis);
     }
 }
