@@ -1,7 +1,5 @@
 package redis;
 
-import java.util.Iterator;
-
 import redis.clients.jedis.Jedis;
 
 public class RedisSets {
@@ -9,10 +7,10 @@ public class RedisSets {
     public static void main(String[] args) {
 	// 连接本地的 Redis 服务
 	Jedis jedis = RedisUtil.getJedis(0);
-	// System.out.println(jedis.sadd("sets:test1", "a"));
-	// System.out.println(jedis.sadd("sets:test1", "b"));
-	// System.out.println(jedis.sadd("sets:test1", "c"));
-	// System.out.println(jedis.sadd("sets:test1", "d"));
+	System.out.println(jedis.sadd("sets:test1", "a"));
+	System.out.println(jedis.sadd("sets:test1", "b"));
+	System.out.println(jedis.sadd("sets:test1", "c"));
+	System.out.println(jedis.sadd("sets:test1", "a"));
 	// System.out.println(jedis.sadd("sets:test1", "e"));
 	// System.out.println(jedis.sadd("sets:test1", "f"));
 	// System.out.println(jedis.sadd("sets:test1", "g"));
@@ -21,7 +19,7 @@ public class RedisSets {
 	// System.out.println(jedis.sadd("sets:test2", "a"));
 	// System.out.println(jedis.sadd("sets:test2", "b"));
 	// System.out.println(jedis.sadd("sets:test2", "e"));
-	System.out.println(jedis.smembers("sets:test2"));
+	// System.out.println(jedis.smembers("sets:test2"));
 	//
 	// System.out.println(jedis.sadd("sets:test3", "e"));
 	// System.out.println(jedis.sadd("sets:test3", "f"));
@@ -60,18 +58,18 @@ public class RedisSets {
 	// System.out.println(jedis.smembers("sets:test1"));
 	// System.out.println(jedis.sunionstore("sets:test4", "h", "i", "j"));
 	// System.out.println(jedis.smembers("sets:test4"));
-
-	System.out.println(jedis.sadd("sets:test2", "a"));
-	System.out.println(jedis.sadd("sets:test2", "b"));
-	System.out.println(jedis.sadd("sets:test2", "c"));
-	System.out.println(jedis.sadd("sets:test2", "a"));
-	System.out.println(jedis.smembers("sets:test2"));
-
-	Iterator<String> iterator = jedis.smembers("sets:test2").iterator();
-	while (iterator.hasNext()) {
-	    String market = iterator.next();
-	    System.out.println(market);
-	}
+	//
+	// System.out.println(jedis.sadd("sets:test2", "a"));
+	// System.out.println(jedis.sadd("sets:test2", "b"));
+	// System.out.println(jedis.sadd("sets:test2", "c"));
+	// System.out.println(jedis.sadd("sets:test2", "a"));
+	// System.out.println(jedis.smembers("sets:test2"));
+	//
+	// Iterator<String> iterator = jedis.smembers("sets:test2").iterator();
+	// while (iterator.hasNext()) {
+	// String market = iterator.next();
+	// System.out.println(market);
+	// }
 
 	RedisUtil.returnResource(jedis);
     }

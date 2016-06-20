@@ -1,14 +1,45 @@
 package common;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class Test {
 
     public static void main(String[] args) {
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+	Map<Long, Integer> map = new HashMap<Long, Integer>();
+	map.put(10000266L, 5);
+	map.put(10000233L, 2);
+	map.put(10000092L, 4);
+
+	Long userId;
+	Integer count = 0;
+	String msg = "";
+
+	Iterator<Long> iterator = map.keySet().iterator();
+	// 3.发送信鸽消息
+	while (iterator.hasNext()) {
+	    try {
+		userId = iterator.next();
+		count = map.get(userId);
+		if (count >= 1) {
+		    // 您有count个筹码马上就要过期了,快去下单吧！
+		    msg = String.format("您有%d个筹码马上就要过期了,快去下单吧！", count);
+		}
+		System.out.println(userId + "  " + count + " " + msg);
+	    } catch (Exception e) {
+		e.printStackTrace();
+	    }
+	}
+	// HashSet<Long> userSet = new HashSet();
+	// userSet.add(1L);
+	// userSet.add(2L);
+	// userSet.add(3L);
+	// userSet.add(4L);
+	// userSet.add(5L);
+
+	// SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	// String queryDate = "2015-05-24";
 	//
 	// Date dates;
@@ -19,11 +50,11 @@ public class Test {
 	// // TODO Auto-generated catch block
 	// e.printStackTrace();
 	// }
-
-	Calendar cal = Calendar.getInstance();
-	cal.add(Calendar.DATE, -1);
-	String date = sdf.format(cal.getTime());
-	System.out.println(date);
+	//
+	// Calendar cal = Calendar.getInstance();
+	// cal.add(Calendar.DATE, -1);
+	// String date = sdf.format(cal.getTime());
+	// System.out.println(date);
 	// Map<Integer, Integer> map = new HashMap<Integer, Integer>();
 	// map.put(0, 1);
 	// map.put(1, 2);

@@ -6,11 +6,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
-	private static final int SERVER_PORT = 30000;
-	// 使用CrazyitMap对象来保存每个客户名字和对应输出流之间的对应关系。
-	public static CrazyitMap<String, PrintStream> clients = new CrazyitMap<>();
+    private static final int SERVER_PORT = 30000;
+    // 使用CrazyitMap对象来保存每个客户名字和对应输出流之间的对应关系。
+    public static CrazyitMap<String, PrintStream> clients = new CrazyitMap();
 
-	public void init() {
+    public void init() {
 		try (
 		// 建立监听的ServerSocket
 		ServerSocket ss = new ServerSocket(SERVER_PORT)) {
@@ -26,8 +26,8 @@ public class Server {
 		}
 	}
 
-	public static void main(String[] args) {
-		Server server = new Server();
-		server.init();
-	}
+    public static void main(String[] args) {
+	Server server = new Server();
+	server.init();
+    }
 }
