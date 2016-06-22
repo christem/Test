@@ -10,6 +10,10 @@ import java.util.concurrent.FutureTask;
 
 public class ConcurrentTask {
 
+	public static void main(String args[]) {
+		// ExecutorService
+	}
+
 	private final ConcurrentMap<Object, Future<String>> taskCache = new ConcurrentHashMap<Object, Future<String>>();
 
 	private String executionTask(final String taskName)

@@ -12,8 +12,14 @@ import Thread.ArtConcurrentBook.chapter04.SleepUtils;
  */
 public class TwinsLockTest {
 
+	public static void main(String args[]) {
+		TwinsLockTest lockTest = new TwinsLockTest();
+		lockTest.test();
+	}
+
 	public void test() {
 		final Lock lock = new TwinsLock();
+
 		class Worker extends Thread {
 			public void run() {
 				while (true) {
