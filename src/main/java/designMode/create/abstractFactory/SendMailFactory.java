@@ -1,0 +1,10 @@
+package designMode.create.abstractFactory;
+
+public class SendMailFactory implements Provider {
+
+    @Override
+    public Sender produce() {
+	return new MailSender();
+    }
+
+}

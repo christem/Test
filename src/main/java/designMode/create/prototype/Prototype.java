@@ -1,4 +1,4 @@
-package designMode.prototype;
+package designMode.create.prototype;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -7,6 +7,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+/**
+ * 创建型 --原型模式 Prototype
+ * 
+ * 原型模式虽然是创建型的模式，但是与工程模式没有关系，从名字即可看出， 该模式的
+ * 思想就是将一个对象作为原型，对其进行复制、克隆，产生一个和原对象类似的新对象
+ * 
+ * 只需要实现Cloneable接口，覆写clone方法
+ */
 public class Prototype implements Cloneable, Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,13 +38,21 @@ public class Prototype implements Cloneable, Serializable {
 	this.obj = obj;
     }
 
-    /* 浅复制 */
+    /*
+     * 浅复制：将一个对象复制后，基本数据类型的变量都会重新创建，而引用类型，指向的还是原对象所指向的。
+     * 
+     * @see java.lang.Object#clone()
+     */
     public Object clone() throws CloneNotSupportedException {
 	Prototype proto = (Prototype) super.clone();
 	return proto;
     }
 
-    /* 深复制 */
+    /*
+     * 深复制：将一个对象复制后，不论是基本数据类型还有引用类型，都是重新创建的。
+     * 
+     * 简单来说，就是深复制进行了完全彻底的复制，而浅复制不彻底。
+     */
     public Object deepClone() throws IOException, ClassNotFoundException {
 
 	/* 写入当前对象的二进制流 */
@@ -81,7 +97,6 @@ public class Prototype implements Cloneable, Serializable {
 	    System.out.println(s3.getAge() + " " + s3.getName() + " " + s3.getConcat().getPhone());
 	    System.out.println(s4.getAge() + " " + s4.getName() + " " + s4.getConcat().getPhone());
 	} catch (Exception e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
 
