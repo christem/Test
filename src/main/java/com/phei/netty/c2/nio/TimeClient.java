@@ -21,10 +21,6 @@ package com.phei.netty.c2.nio;
  * @version 1.0
  */
 public class TimeClient {
-
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 
 		int port = 8080;
