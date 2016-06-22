@@ -13,20 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phei.netty.nio;
+package com.phei.netty.c2.nio;
+
+import java.io.IOException;
 
 /**
  * @author lilinfeng
  * @date 2014年2月14日
  * @version 1.0
  */
-public class TimeClient {
+public class TimeServer {
 
     /**
      * @param args
+     * @throws IOException
      */
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws IOException {
 	int port = 8080;
 	if (args != null && args.length > 0) {
 	    try {
@@ -35,7 +37,7 @@ public class TimeClient {
 		// 采用默认值
 	    }
 	}
-	new Thread(new TimeClientHandle("127.0.0.1", port), "TimeClient-001")
-		.start();
+	MultiplexerTimeServer timeServer = new MultiplexerTimeServer(port);
+	new Thread(timeServer, "NIO-MultiplexerTimeServer-001").start();
     }
 }
