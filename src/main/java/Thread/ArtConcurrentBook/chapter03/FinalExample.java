@@ -12,16 +12,16 @@ public class FinalExample {
 
     public static void writer() { // 写线程A执行
 	obj = new FinalExample();
-	System.out.println(obj.i);
-	System.out.println(obj.j);
+	System.out.println("i:" + obj.i);
+	System.out.println("j:" + obj.j);
     }
 
     public static void reader() { // 读线程B执行
 	FinalExample object = obj; // 读对象引用
 	int a = object.i; // 读普通域
 	int b = object.j; // 读final域
-	System.out.println(a);
-	System.out.println(b);
+	System.out.println("a:" + a);
+	System.out.println("b:" + b);
     }
 
     public static void main(String args[]) {

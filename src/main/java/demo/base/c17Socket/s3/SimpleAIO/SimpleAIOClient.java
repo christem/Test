@@ -6,30 +6,25 @@ import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.charset.Charset;
 
 public class SimpleAIOClient {
-	static final int PORT = 30000;
+    static final int PORT = 30000;
 
-	public static void main(String[] args) throws Exception {
-		// ÓÃÓÚ¶ÁÈ¡Êı¾İµÄByteBuffer¡£
-		ByteBuffer buff = ByteBuffer.allocate(1024);
-		Charset utf = Charset.forName("utf-8");
-		try (
-		// ¢Ù´´½¨AsynchronousSocketChannel¶ÔÏó
-		AsynchronousSocketChannel clientChannel = AsynchronousSocketChannel
-				.open()) {
-			// ¢ÚÁ¬½ÓÔ¶³Ì·şÎñÆ÷
-			clientChannel.connect(new InetSocketAddress("127.0.0.1", PORT))
-					.get(); // ¢Ü
-			buff.clear();
-			// ¢Û´ÓclientChannelÖĞ¶ÁÈ¡Êı¾İ
-			clientChannel.read(buff).get(); // ¢İ
-			buff.flip();
-			// ½«buffÖĞÄÚÈİ×ª»»Îª×Ö·û´®
-			String content = utf.decode(buff).toString();
-			System.out.println("·şÎñÆ÷ĞÅÏ¢£º" + content);
+    public static void main(String[] args) throws Exception {
+	// ç”¨äºè¯»å–æ•°æ®çš„ByteBufferã€‚
+	ByteBuffer buff = ByteBuffer.allocate(1024);
+	Charset utf = Charset.forName("utf-8");
+	// â‘ åˆ›å»ºAsynchronousSocketChannelå¯¹è±¡
+	try (AsynchronousSocketChannel clientChannel = AsynchronousSocketChannel.open()) {
+	    // â‘¡è¿æ¥è¿œç¨‹æœåŠ¡å™¨
+	    clientChannel.connect(new InetSocketAddress("127.0.0.1", PORT)).get(); // â‘£
+	    buff.clear();
+	    // â‘¢ä»clientChannelä¸­è¯»å–æ•°æ®
+	    clientChannel.read(buff).get(); // â‘¤
+	    buff.flip();
+	    // å°†buffä¸­å†…å®¹è½¬æ¢ä¸ºå­—ç¬¦ä¸²
+	    String content = utf.decode(buff).toString();
+	    System.out.println("æœåŠ¡å™¨ä¿¡æ¯ï¼š" + content);
 
-			clientChannel.write(
-					ByteBuffer.wrap("»¶Ó­ÄãÀ´×ÔAIOµÄÊÀ½ç-¿Í»§¶Ë£¡".getBytes("UTF-8")))
-					.get();
-		}
+	    clientChannel.write(ByteBuffer.wrap("æ¬¢è¿ä½ æ¥è‡ªAIOçš„ä¸–ç•Œ-å®¢æˆ·ç«¯ï¼".getBytes("UTF-8"))).get();
 	}
+    }
 }

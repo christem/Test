@@ -8,36 +8,29 @@ import java.nio.charset.Charset;
 import java.util.concurrent.Future;
 
 public class SimpleAIOServer {
-	static final int PORT = 30000;
+    static final int PORT = 30000;
 
-	public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
-		// ÓÃÓÚ¶ÁÈ¡Êı¾İµÄByteBuffer¡£
-		ByteBuffer buff = ByteBuffer.allocate(1024);
-
-		try (
-		// ¢Ù´´½¨AsynchronousServerSocketChannel¶ÔÏó¡£
-		AsynchronousServerSocketChannel serverChannel = AsynchronousServerSocketChannel
-				.open()) {
-			// ¢ÚÖ¸¶¨ÔÚÖ¸¶¨µØÖ·¡¢¶Ë¿Ú¼àÌı¡£
-			serverChannel.bind(new InetSocketAddress(PORT));
-			while (true) {
-				// ¢Û²ÉÓÃÑ­»·½ÓÊÜÀ´×Ô¿Í»§¶ËµÄÁ¬½Ó
-				Future<AsynchronousSocketChannel> future = serverChannel
-						.accept();
-				// »ñÈ¡Á¬½ÓÍê³Éºó·µ»ØµÄAsynchronousSocketChannel ·µ»ØÊ±IO²Ù×÷²ÅÕæÕıÍê³É
-				AsynchronousSocketChannel socketChannel = future.get();
-				// Ö´ĞĞÊä³ö¡£
-				socketChannel.write(
-						ByteBuffer.wrap("»¶Ó­ÄãÀ´×ÔAIOµÄÊÀ½ç£¡".getBytes("UTF-8")))
-						.get();
-				socketChannel.read(buff).get();
-				buff.flip();
-				// ½«buffÖĞÄÚÈİ×ª»»Îª×Ö·û´®
-				String content = Charset.forName("UTF-8").decode(buff)
-						.toString();
-				System.out.println("¿Í»§¶ËĞÅÏ¢£º" + content);
-			}
-		}
+	// ç”¨äºè¯»å–æ•°æ®çš„ByteBufferã€‚
+	ByteBuffer buff = ByteBuffer.allocate(1024);
+	// â‘ åˆ›å»ºAsynchronousServerSocketChannelå¯¹è±¡ã€‚
+	try (AsynchronousServerSocketChannel serverChannel = AsynchronousServerSocketChannel.open()) {
+	    // â‘¡æŒ‡å®šåœ¨æŒ‡å®šåœ°å€ã€ç«¯å£ç›‘å¬ã€‚
+	    serverChannel.bind(new InetSocketAddress(PORT));
+	    while (true) {
+		// â‘¢é‡‡ç”¨å¾ªç¯æ¥å—æ¥è‡ªå®¢æˆ·ç«¯çš„è¿æ¥
+		Future<AsynchronousSocketChannel> future = serverChannel.accept();
+		// è·å–è¿æ¥å®Œæˆåè¿”å›çš„AsynchronousSocketChannel è¿”å›æ—¶IOæ“ä½œæ‰çœŸæ­£å®Œæˆ
+		AsynchronousSocketChannel socketChannel = future.get();
+		// æ‰§è¡Œè¾“å‡ºã€‚
+		socketChannel.write(ByteBuffer.wrap("æ¬¢è¿ä½ æ¥è‡ªAIOçš„ä¸–ç•Œï¼".getBytes("UTF-8"))).get();
+		socketChannel.read(buff).get();
+		buff.flip();
+		// å°†buffä¸­å†…å®¹è½¬æ¢ä¸ºå­—ç¬¦ä¸²
+		String content = Charset.forName("UTF-8").decode(buff).toString();
+		System.out.println("å®¢æˆ·ç«¯ä¿¡æ¯ï¼š" + content);
+	    }
 	}
+    }
 }

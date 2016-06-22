@@ -53,7 +53,7 @@ public class RedisJava {
 
 	// hash
 	// jedis.hincrBy("test", "2016", 1);
-	// jedis.hincrBy("test", "2015", 1);
+	jedis.hincrBy("test", "2015", 1);
 	// jedis.hincrBy("test", "2014", 1);
 	// jedis.hincrBy("test", "2013", 1);
 	// jedis.hincrBy("test", "2019", 1);

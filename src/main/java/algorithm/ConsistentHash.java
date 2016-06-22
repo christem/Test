@@ -24,7 +24,7 @@ public class ConsistentHash<T> {
     /**
      * 一致性Hash环
      */
-    private final SortedMap<Long, T> circle = new TreeMap<>();
+    private final SortedMap<Long, T> circle = new TreeMap();
 
     /**
      * 构造，使用Java默认的Hash算法
@@ -38,7 +38,6 @@ public class ConsistentHash<T> {
 	this.numberOfReplicas = numberOfReplicas;
 	this.hashFunc = new HashFunc() {
 
-	    @Override
 	    public Long hash(Object key) {
 		// return fnv1HashingAlg(key.toString());
 		return md5HashingAlg(key.toString());
