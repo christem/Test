@@ -18,7 +18,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/json-lib-2.4-jdk15.jar" sourcepath="lib/json-lib-2.4-jdk15.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/ant.jar"/>
 	<classpathentry kind="lib" path="lib/bcel.jar"/>
 	<classpathentry kind="lib" path="lib/hamcrest-core.jar"/>
@@ -37,5 +36,16 @@
 	<classpathentry kind="lib" path="lib/stax-api.jar"/>
 	<classpathentry kind="lib" path="lib/wstx-asl.jar"/>
 	<classpathentry kind="lib" path="lib/xpp3.jar"/>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
