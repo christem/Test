@@ -36,6 +36,11 @@ public class Builder {
 
     public static void main(String[] args) {
 	Builder builder = new Builder();
-	builder.produceMailSender(10);
+	builder.produceMailSender(5);
+	builder.produceSmsSender(5);
+	List<Sender> sendList = builder.list;
+	for (Sender sender : sendList) {
+	    System.out.println(sender.toString());
+	}
     }
 }

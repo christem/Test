@@ -1,7 +1,7 @@
 package designMode.create.singleton;
 
 /**
- * 在Java应用中，单例对象能保证在一个JVM中，该对象只有一个实例存在。
+ * 单例对象能保证在一个JVM中，该对象只有一个实例存在。
  * 
  * 这样的模式有几个好处：
  * 
