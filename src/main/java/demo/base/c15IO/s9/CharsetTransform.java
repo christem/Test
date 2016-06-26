@@ -18,24 +18,24 @@ import java.nio.charset.CharsetEncoder;
  */
 public class CharsetTransform {
     public static void main(String[] args) throws Exception {
-	// ´´½¨¼òÌåÖĞÎÄ¶ÔÓ¦µÄCharset
+	// åˆ›å»ºç®€ä½“ä¸­æ–‡å¯¹åº”çš„Charset
 	Charset cn = Charset.forName("GBK");
-	// »ñÈ¡cn¶ÔÏó¶ÔÓ¦µÄ±àÂëÆ÷ºÍ½âÂëÆ÷
+	// è·å–cnå¯¹è±¡å¯¹åº”çš„ç¼–ç å™¨å’Œè§£ç å™¨
 	CharsetEncoder cnEncoder = cn.newEncoder();
 	CharsetDecoder cnDecoder = cn.newDecoder();
-	// ´´½¨Ò»¸öCharBuffer¶ÔÏó
+	// åˆ›å»ºä¸€ä¸ªCharBufferå¯¹è±¡
 	CharBuffer cbuff = CharBuffer.allocate(8);
-	cbuff.put('Ëï');
-	cbuff.put('Îò');
-	cbuff.put('¿Õ');
+	cbuff.put('å­™');
+	cbuff.put('æ‚Ÿ');
+	cbuff.put('ç©º');
 	cbuff.flip();
-	// ½«CharBufferÖĞµÄ×Ö·ûĞòÁĞ×ª»»³É×Ö½ÚĞòÁĞ
+	// å°†CharBufferä¸­çš„å­—ç¬¦åºåˆ—è½¬æ¢æˆå­—èŠ‚åºåˆ—
 	ByteBuffer bbuff = cnEncoder.encode(cbuff);
-	// Ñ­»··ÃÎÊByteBufferÖĞµÄÃ¿¸ö×Ö½Ú
+	// å¾ªç¯è®¿é—®ByteBufferä¸­çš„æ¯ä¸ªå­—èŠ‚
 	for (int i = 0; i < bbuff.capacity(); i++) {
 	    System.out.print(bbuff.get(i) + " ");
 	}
-	// ½«ByteBufferµÄÊı¾İ½âÂë³É×Ö·ûĞòÁĞ
+	// å°†ByteBufferçš„æ•°æ®è§£ç æˆå­—ç¬¦åºåˆ—
 	System.out.println("\n" + cnDecoder.decode(bbuff));
     }
 }
