@@ -55,7 +55,7 @@ public class Chapter06 {
 	// 带有超时特性的锁
 	// testDistributedLocking(conn);
 	// 计数信号量 公平锁
-	// testCountingSemaphore(conn);
+	testCountingSemaphore(conn);
 	// 延迟队列
 	// testDelayedTasks(conn);
 	// 多接收者消息的发送与订阅替代品

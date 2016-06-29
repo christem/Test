@@ -1,4 +1,4 @@
-package algorithm;
+package algorithm.other;
 
 /**
  * 快速排序

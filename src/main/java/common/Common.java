@@ -1,12 +1,11 @@
 package common;
 
-
 public class Common {
 
     public static void main(String[] args) {
 
-	String url = "fail:获取图片名出错";
-	System.out.println(url.indexOf("fail:获取图片名出错"));
+	String url = "http://roi.skst.cn/logo/inner/dddd.png";
+	System.out.println(url.indexOf("http://roi.skst.cn/logo/"));
 
     }
 }
