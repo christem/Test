@@ -3,21 +3,21 @@ package common;
 public class DataTypeTest {
 
     public static void main(String args[]) {
-	// DataTypeTest dt = new DataTypeTest();
+	DataTypeTest dt = new DataTypeTest();
 
-	Double a = Double.valueOf(100);
-	Double b = 100D;
-	// “==”比较的是地址，而a和b两个对象的地址不同，即是两个对象，所以都是false
-	System.out.println("m11 result " + (a == b));
+	// Double a = Double.valueOf(100);
+	// Double b = 100D;
+	// // “==”比较的是地址，而a和b两个对象的地址不同，即是两个对象，所以都是false
+	// System.out.println("m11 result " + (a == b));
 
-	// dt.m11();
-	// dt.m12();
-	//
-	// dt.m31();
-	// dt.m32();
-	//
-	// dt.m41();
-	// dt.m42();
+	dt.m11();
+	dt.m12();
+
+	dt.m31();
+	dt.m32();
+
+	dt.m41();
+	dt.m42();
     }
 
     public void m11() {
@@ -30,6 +30,7 @@ public class DataTypeTest {
     public void m12() {
 	Integer a = new Integer(128);
 	Integer b = 128;
+	// “==”比较的是地址，而a和b两个对象的地址不同，即是两个对象，所以都是false
 	System.out.println("m12 result " + (a == b));
     }
 
@@ -43,6 +44,7 @@ public class DataTypeTest {
     public void m32() {
 	Integer a = 128;
 	Integer b = 128;
+	// 在【-128，127】之间的数字，valueOf返回的是缓存中的对象，所以两次调用返回的不是同一个对象。
 	System.out.println("m32 result " + (a == b));
     }
 

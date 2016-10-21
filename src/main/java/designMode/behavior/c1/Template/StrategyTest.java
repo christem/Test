@@ -12,8 +12,8 @@ package designMode.behavior.c1.Template;
  * 
  * 在calculate(String,String)里调用同类的split()，之后再调用calculate(int,int)方法，
  * 
- * 从这个方法进入到子类中，执行完return num1
- * +num2后，将值返回到AbstractCalculator类，赋给result，打印出来。正好验证了我们开头的思路。
+ * 从这个方法进入到子类中，执行完return
+ * num1+num2后，将值返回到AbstractCalculator类，赋给result，打印出来。正好验证了我们开头的思路。
  * 
  */
 public class StrategyTest {
