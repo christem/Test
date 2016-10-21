@@ -4,35 +4,25 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-/**
- * Description: <br/>
- * Copyright (C), 2005-2008, Yeeku.H.Lee <br/>
- * This program is protected by copyright laws. <br/>
- * Program Name: <br/>
- * Date:
- * 
- * @author Yeeku.H.Lee kongyeeku@163.com
- * @version 1.0
- */
 public class ReadTeacher {
 	public static void main(String[] args) {
 		ObjectInputStream ois = null;
 		try {
-			// ´´½¨Ò»¸öObjectInputStreamÊäÈëÁ÷
+			// åˆ›å»ºä¸€ä¸ªObjectInputStreamè¾“å…¥æµ
 			ois = new ObjectInputStream(
 					new FileInputStream(
 							"E:/Code/MyGitProject/Test/src/main/java/demo/base/c15IO/s8/teacher.txt"));
-			// ÒÀ´Î¶ÁÈ¡ObjectInputStreamÊäÈëÁ÷ÖĞµÄËÄ¸ö¶ÔÏó
+			// ä¾æ¬¡è¯»å–ObjectInputStreamè¾“å…¥æµä¸­çš„å››ä¸ªå¯¹è±¡
 			Teacher t1 = (Teacher) ois.readObject();
 			Teacher t2 = (Teacher) ois.readObject();
 			Person p = (Person) ois.readObject();
 			Teacher t3 = (Teacher) ois.readObject();
-			// Êä³ötrue
-			System.out.println("t1µÄstudentÒıÓÃºÍpÊÇ·ñÏàÍ¬£º" + (t1.getStudent() == p));
-			// Êä³ötrue
-			System.out.println("t2µÄstudentÒıÓÃºÍpÊÇ·ñÏàÍ¬£º" + (t2.getStudent() == p));
-			// Êä³ötrue
-			System.out.println("t2ºÍt3ÊÇ·ñÊÇÍ¬Ò»¸ö¶ÔÏó£º" + (t2 == t3));
+			// è¾“å‡ºtrue
+			System.out.println("t1çš„studentå¼•ç”¨å’Œpæ˜¯å¦ç›¸åŒï¼š" + (t1.getStudent() == p));
+			// è¾“å‡ºtrue
+			System.out.println("t2çš„studentå¼•ç”¨å’Œpæ˜¯å¦ç›¸åŒï¼š" + (t2.getStudent() == p));
+			// è¾“å‡ºtrue
+			System.out.println("t2å’Œt3æ˜¯å¦æ˜¯åŒä¸€ä¸ªå¯¹è±¡ï¼š" + (t2 == t3));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {

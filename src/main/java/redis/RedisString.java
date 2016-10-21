@@ -8,7 +8,11 @@ public class RedisString {
 	// 连接本地的 Redis 服务
 	Jedis jedis = RedisUtil.getJedis(1);
 	// 1.字符添加(Append)
-	// System.out.println(jedis.set("test", "hello"));
+	 System.out.println(jedis.set("test", "hello"));
+	 System.out.println(jedis.get("test"));
+	 System.out.println(jedis.incr("test"));
+	 System.out.println(jedis.get("test"));
+	 
 	// System.out.println(jedis.append("test", " redis"));
 
 	// 2.设置value为整型 进行加减操作

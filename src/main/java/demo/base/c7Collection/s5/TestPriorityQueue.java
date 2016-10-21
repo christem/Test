@@ -24,5 +24,8 @@ public class TestPriorityQueue {
 		System.out.println(pq);
 		// 访问队列第一个元素，其实就是队列中最小的元素：-3
 		System.out.println(pq.peek());
+		System.out.println(pq);
+		System.out.println(pq.poll());
+		System.out.println(pq);
 	}
 }

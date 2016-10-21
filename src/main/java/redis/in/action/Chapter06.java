@@ -50,14 +50,14 @@ public class Chapter06 {
     public void run() throws InterruptedException, IOException {
 	Jedis conn = getRedis();
 	// 自动补全最近联系人
-	// testAddUpdateContact(conn);
-	// testAddressBookAutocomplete(conn);
+	 testAddUpdateContact(conn);
+	 testAddressBookAutocomplete(conn);
 	// 带有超时特性的锁
-	// testDistributedLocking(conn);
+	 testDistributedLocking(conn);
 	// 计数信号量 公平锁
 	testCountingSemaphore(conn);
 	// 延迟队列
-	// testDelayedTasks(conn);
+	 testDelayedTasks(conn);
 	// 多接收者消息的发送与订阅替代品
 	// testMultiRecipientMessaging(conn);
 	testFileDistribution(conn);

@@ -2,10 +2,18 @@ package common;
 
 public class Common {
 
+	static int x =10;
+	
+	static {
+		x+=5;
+	}
+	
     public static void main(String[] args) {
-
-	String url = "http://roi.skst.cn/logo/inner/dddd.png";
-	System.out.println(url.indexOf("http://roi.skst.cn/logo/"));
-
+    	System.out.println(x);
     }
+    
+    static {
+    	x=x/3;
+    }
+    
 }

@@ -23,8 +23,8 @@ public class Chapter02 {
 		conn.auth("redis");
 		conn.select(2);
 
-		testLoginCookies(conn);
-		// testShopppingCartCookies(conn);
+//		testLoginCookies(conn);
+		 testShopppingCartCookies(conn);
 		// testCacheRows(conn);
 		// testCacheRequest(conn);
 	}

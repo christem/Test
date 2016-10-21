@@ -25,19 +25,20 @@ public class Chapter08 {
 
 	public void run() throws InterruptedException {
 		Jedis conn = new Jedis("localhost");
-		conn.select(15);
-		conn.flushDB();
-
-		testCreateUserAndStatus(conn);
+		conn.auth("redis");
+		conn.select(14);
+//		conn.flushDB();
+//
+//		testCreateUserAndStatus(conn);
 		conn.flushDB();
 
 		testFollowUnfollowUser(conn);
-		conn.flushDB();
-
-		testSyndicateStatus(conn);
-		conn.flushDB();
-
-		testRefillTimeline(conn);
+//		conn.flushDB();
+//
+//		testSyndicateStatus(conn);
+//		conn.flushDB();
+//
+//		testRefillTimeline(conn);
 	}
 
 	public void testCreateUserAndStatus(Jedis conn) {
@@ -53,29 +54,29 @@ public class Chapter08 {
 	public void testFollowUnfollowUser(Jedis conn) {
 		System.out.println("\n----- testFollowUnfollowUser -----");
 
-		assert createUser(conn, "TestUser", "Test User") == 1;
-		assert createUser(conn, "TestUser2", "Test User2") == 2;
+		System.out.println( createUser(conn, "TestUser", "Test User") == 1);
+		System.out.println( createUser(conn, "TestUser2", "Test User2") == 2);
 
-		assert followUser(conn, 1, 2);
-		assert conn.zcard("followers:2") == 1;
-		assert conn.zcard("followers:1") == 0;
-		assert conn.zcard("following:1") == 1;
-		assert conn.zcard("following:2") == 0;
-		assert "1".equals(conn.hget("user:1", "following"));
-		assert "0".equals(conn.hget("user:2", "following"));
-		assert "0".equals(conn.hget("user:1", "followers"));
-		assert "1".equals(conn.hget("user:2", "followers"));
+		System.out.println( followUser(conn, 1, 2));
+		System.out.println( conn.zcard("followers:2") == 1);
+		System.out.println( conn.zcard("followers:1") == 0);
+		System.out.println( conn.zcard("following:1") == 1);
+		System.out.println( conn.zcard("following:2") == 0);
+		System.out.println( "1".equals(conn.hget("user:1", "following")));
+		System.out.println( "0".equals(conn.hget("user:2", "following")));
+		System.out.println( "0".equals(conn.hget("user:1", "followers")));
+		System.out.println( "1".equals(conn.hget("user:2", "followers")));
 
-		assert !unfollowUser(conn, 2, 1);
-		assert unfollowUser(conn, 1, 2);
-		assert conn.zcard("followers:2") == 0;
-		assert conn.zcard("followers:1") == 0;
-		assert conn.zcard("following:1") == 0;
-		assert conn.zcard("following:2") == 0;
-		assert "0".equals(conn.hget("user:1", "following"));
-		assert "0".equals(conn.hget("user:2", "following"));
-		assert "0".equals(conn.hget("user:1", "followers"));
-		assert "0".equals(conn.hget("user:2", "followers"));
+		System.out.println( !unfollowUser(conn, 2, 1));
+		System.out.println( unfollowUser(conn, 1, 2));
+		System.out.println( conn.zcard("followers:2") == 0);
+		System.out.println( conn.zcard("followers:1") == 0);
+		System.out.println( conn.zcard("following:1") == 0);
+		System.out.println( conn.zcard("following:2") == 0);
+		System.out.println( "0".equals(conn.hget("user:1", "following")));
+		System.out.println( "0".equals(conn.hget("user:2", "following")));
+		System.out.println( "0".equals(conn.hget("user:1", "followers")));
+		System.out.println( "0".equals(conn.hget("user:2", "followers")));
 	}
 
 	public void testSyndicateStatus(Jedis conn) throws InterruptedException {
