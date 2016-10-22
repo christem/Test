@@ -1,4 +1,4 @@
-package common.catchdata.test;
+package common.catchdata.house;
 
 import java.io.IOException;
 import java.util.ArrayList;
