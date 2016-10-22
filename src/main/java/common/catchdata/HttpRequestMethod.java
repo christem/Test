@@ -6,25 +6,16 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONObject;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
+public class HttpRequestMethod {
 
-import common.util.ExcelUtil;
-
-public class GetHtmlDataTest {
-
-	static URL realUrl = null;
+	public URL realUrl = null;
 	// 打开和URL之间的连接
-	static URLConnection connection = null;
+	public URLConnection connection = null;
 
-	static String host = "";
+	public String host = "";
 
 	/**
 	 * 向指定URL发送GET方法的请求
@@ -35,7 +26,7 @@ public class GetHtmlDataTest {
 	 *            请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
 	 * @return URL 所代表远程资源的响应结果
 	 */
-	public static String sendGet(String url, String param) {
+	public String sendGet(String url, String param) {
 		String result = "";
 		BufferedReader in = null;
 		try {
@@ -84,7 +75,7 @@ public class GetHtmlDataTest {
 	 *            请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
 	 * @return 所代表远程资源的响应结果
 	 */
-	public static String sendPost(String url, String param) {
+	public String sendPost(String url, String param) {
 		PrintWriter out = null;
 		BufferedReader in = null;
 		String result = "";
@@ -133,56 +124,4 @@ public class GetHtmlDataTest {
 		return result;
 	}
 
-	public static void main(String[] args) throws IOException {
-
-		List<Map<String, String>> list = null;
-		Map<String, String> map = null;
-
-		for (int pageNo = 1; pageNo < 314; pageNo++) {
-			System.out.println("******************************讀取第" + pageNo
-					+ "頁******************************");
-			list = new ArrayList<Map<String, String>>();
-			// 獲取數據
-			String content = sendPost(
-					"http://www.csfdc.gov.cn/index.php/home/Index/getnewslist/",
-					"type=25&p=" + pageNo); // post请求访问页面(URL及参数已处理)
-			JSONObject object;
-			try {
-				object = new JSONObject(content);
-				String value = object.getString("content");
-				Document doc = Jsoup.parse(value.toString());
-				Elements trs = doc.select("table").select("tr");
-				// System.out.println(realUrl);
-				// System.out.println(connection);
-				for (int i = 1; i < trs.size() - 1; i++) {
-
-					map = new HashMap<String, String>();
-
-					Elements tds = trs.get(i).select("td");
-
-					int tdsize = tds.size();
-
-					for (int j = 0; j < tdsize; j++) {
-						String text = tds.get(j).text();
-						// System.out.println(text);
-						map.put(j + "", text);
-					}
-
-					Elements as = trs.get(i).select("a");
-					for (int k = 0; k < as.size(); k++) {
-						String url = as.get(k).attr("href");
-						// System.out.println(host+url);
-						map.put((k + tdsize) + "", host + url);
-					}
-					list.add(map);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			// 導入excel
-			ExcelUtil.appendXlsx("D://house.xlsx", list);
-		}
-
-	}
 }
