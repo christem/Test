@@ -14,7 +14,13 @@ import org.jsoup.select.Elements;
 import common.catchdata.HttpRequestMethod;
 import common.util.ExcelUtil;
 
-public class HouseCsTest {
+/**
+ * 第一步获取楼盘列表
+ * 
+ * @author Suny
+ *
+ */
+public class HouseCsTest2 {
 	public static void main(String[] args) throws IOException {
 
 		HttpRequestMethod method = new HttpRequestMethod();
