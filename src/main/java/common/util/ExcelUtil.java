@@ -19,7 +19,6 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.apache.poi.util.SystemOutLogger;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -28,56 +27,54 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
- * 工作中经常需要对Excel进行读写操作，
- * java操作excel文件比较流行的是apache poi包，
- * excel分为xls（2003）和xlsx（2007）两种格式，
- * 操作这两种格式的excel需要不同的poi包。
+ * 工作中经常需要对Excel进行读写操作， java操作excel文件比较流行的是apache poi包，
+ * excel分为xls（2003）和xlsx（2007）两种格式， 操作这两种格式的excel需要不同的poi包。
  * 
- * @ClassName ExcelUtil  
- * @Description TODO 
- * @author suny 
- * @date 2016年10月21日  
- *   
+ *  * @ClassName ExcelUtil    @Description TODO   * @author suny 
+ *  @date 2016年10月21日      
  */
 
 public class ExcelUtil {
 
-	public static void main(String[] args) throws IOException {
+	public void main(String[] args) throws IOException {
 		// readXlsx("D://1.xlsx");
 		// readXls("D://2.xls") ;
 		// writeXls("D://3.xls");
 		// writeXlsx("D://4.xlsx");
-//		appendXlsx("D://4.xlsx");
-		
-		List<Map<String, String>> list = new ArrayList<>();
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("0","1");
-		map.put("1","1");
-		map.put("2","1");
-		map.put("3","1");
-		list.add(map);
-		map = new HashMap<String, String>();
-		map.put("0","2");
-		map.put("1","2");
-		map.put("2","2");
-		map.put("3","2");
-		list.add(map);
-		
-		appendXlsx("D://5.xlsx", list);
+		// appendXlsx("D://4.xlsx");
+
+		// List<Map<String, String>> list = new ArrayList<>();
+		// Map<String, String> map = new HashMap<String, String>();
+		// map.put("0", "1");
+		// map.put("1", "1");
+		// map.put("2", "1");
+		// map.put("3", "1");
+		// list.add(map);
+		// map = new HashMap<String, String>();
+		// map.put("0", "2");
+		// map.put("1", "2");
+		// map.put("2", "2");
+		// map.put("3", "2");
+		// list.add(map);
+		// appendXlsx("D://5.xlsx", list);
+
+		readXlsxRetList("D://test.xlsx");
 	}
 
-	public static void appendXlsx(String path,List<Map<String, String>> list) throws IOException {
+	public void appendXlsx(String path, List<Map<String, String>> list,
+			int sheetNo) throws IOException {
 
-		if (list==null||list.size()==0) {
+		if (list == null || list.size() == 0) {
 			System.out.println("數據為空");
 			return;
 		}
-		
+
 		File file = new File(path);
 		// 如果不存在,创建一个新文件
 		if (!file.exists()) {
 			XSSFWorkbook workbook = new XSSFWorkbook();
-			workbook.createSheet("data");
+			workbook.createSheet("data0");
+			workbook.createSheet("data1");
 			FileOutputStream fileOutputStream = new FileOutputStream(file);
 			workbook.write(fileOutputStream);
 			fileOutputStream.close();
@@ -85,36 +82,38 @@ public class ExcelUtil {
 
 		InputStream is = new FileInputStream(path);
 		XSSFWorkbook xssfWorkbook = new XSSFWorkbook(is);
-		XSSFSheet sheet = xssfWorkbook.getSheetAt(0); // 获取到工作表，因为一个excel可能有多个工作表
+		XSSFSheet sheet = xssfWorkbook.getSheetAt(sheetNo); // 获取到工作表，因为一个excel可能有多个工作表
 		XSSFRow row = sheet.getRow(0); // 获取第一行（excel中的行默认从0开始，所以这就是为什么，一个excel必须有字段列头），即，字段列头，便于赋值
-		if (row!=null) {
-			System.out.println(sheet.getLastRowNum() + " " + row.getLastCellNum()); // 分别得到最后一行的行号，和一条记录的最后一个单元格
+		if (row != null) {
+			System.out.println(sheet.getLastRowNum() + " "
+					+ row.getLastCellNum()); // 分别得到最后一行的行号，和一条记录的最后一个单元格
 		}
-		
+
 		FileOutputStream out = new FileOutputStream(path); // 向d://test.xls中写数据
 		Map<String, String> map = null;
-		
-		for(int i=0;i<list.size();i++){
+
+		for (int i = 0; i < list.size(); i++) {
 			map = list.get(i);
 			row = sheet.createRow((short) (sheet.getLastRowNum() + 1)); // 在现有行号后追加数据
-			
-//			row.createCell(1).setCellValue(map.get("1")); // 设置第一个（从0开始）单元格的数据
-//			row.createCell(0).setCellValue(map.get("0")); // 设置第二个（从0开始）单元格的数据
+
+			// row.createCell(1).setCellValue(map.get("1")); //
+			// 设置第一个（从0开始）单元格的数据
+			// row.createCell(0).setCellValue(map.get("0")); //
+			// 设置第二个（从0开始）单元格的数据
 			for (int j = 0; j < map.size(); j++) {
-				row.createCell(j).setCellValue(map.get(j+"")); // 设置第一个（从0开始）单元格的数据
+				row.createCell(j).setCellValue(map.get(j + "")); // 设置第一个（从0开始）单元格的数据
 			}
 		}
-		
-		
+
 		out.flush();
 		xssfWorkbook.write(out);
 		out.close();
-//		System.out.println(row.getPhysicalNumberOfCells() + " " + row.getLastCellNum());
-		System.out.println("完成，共添加"+list.size()+"行");
+		// System.out.println(row.getPhysicalNumberOfCells() + " " +
+		// row.getLastCellNum());
+		System.out.println("完成，共添加" + list.size() + "行");
 	}
-	
-	
-	public static void appendXlsx(String path) throws IOException {
+
+	public void appendXlsx(String path) throws IOException {
 
 		File file = new File(path);
 		// 如果不存在,创建一个新文件
@@ -130,10 +129,11 @@ public class ExcelUtil {
 		XSSFWorkbook xssfWorkbook = new XSSFWorkbook(is);
 		XSSFSheet sheet = xssfWorkbook.getSheetAt(0); // 获取到工作表，因为一个excel可能有多个工作表
 		XSSFRow row = sheet.getRow(0); // 获取第一行（excel中的行默认从0开始，所以这就是为什么，一个excel必须有字段列头），即，字段列头，便于赋值
-		if (row!=null) {
-			System.out.println(sheet.getLastRowNum() + " " + row.getLastCellNum()); // 分别得到最后一行的行号，和一条记录的最后一个单元格
+		if (row != null) {
+			System.out.println(sheet.getLastRowNum() + " "
+					+ row.getLastCellNum()); // 分别得到最后一行的行号，和一条记录的最后一个单元格
 		}
-		
+
 		FileOutputStream out = new FileOutputStream(path); // 向d://test.xls中写数据
 		row = sheet.createRow((short) (sheet.getLastRowNum() + 1)); // 在现有行号后追加数据
 		row.createCell(1).setCellValue("append data"); // 设置第一个（从0开始）单元格的数据
@@ -142,10 +142,11 @@ public class ExcelUtil {
 		out.flush();
 		xssfWorkbook.write(out);
 		out.close();
-		System.out.println(row.getPhysicalNumberOfCells() + " " + row.getLastCellNum());
+		System.out.println(row.getPhysicalNumberOfCells() + " "
+				+ row.getLastCellNum());
 	}
 
-	public static void appendXls(String path) throws IOException {
+	public void appendXls(String path) throws IOException {
 		FileInputStream fs = new FileInputStream(path); // 获取d://test.xls
 		POIFSFileSystem ps = new POIFSFileSystem(fs); // 使用POI提供的方法得到excel的信息
 		HSSFWorkbook wb = new HSSFWorkbook(ps);
@@ -161,17 +162,19 @@ public class ExcelUtil {
 		out.flush();
 		wb.write(out);
 		out.close();
-		System.out.println(row.getPhysicalNumberOfCells() + " " + row.getLastCellNum());
+		System.out.println(row.getPhysicalNumberOfCells() + " "
+				+ row.getLastCellNum());
 	}
 
 	/**
 	 * 
-	 * @Title: writeXls 
+	 * @Title: writeXls
 	 * @Description: 写入xls
-	 * @param path 参数说明
-	 * @return void    返回类型
+	 * @param path
+	 *            参数说明
+	 * @return void 返回类型
 	 */
-	public static void writeXlsx(String path) {
+	public void writeXlsx(String path) {
 		XSSFWorkbook workbook = null;
 		workbook = new XSSFWorkbook();
 		// 获取参数个数作为excel列数
@@ -219,7 +222,8 @@ public class ExcelUtil {
 
 		// 写到磁盘上
 		try {
-			FileOutputStream fileOutputStream = new FileOutputStream(new File(path));
+			FileOutputStream fileOutputStream = new FileOutputStream(new File(
+					path));
 			workbook.write(fileOutputStream);
 			fileOutputStream.close();
 			System.out.println("##################完成写入##################");
@@ -232,12 +236,13 @@ public class ExcelUtil {
 
 	/**
 	 * 
-	 * @Title: writeXls 
+	 * @Title: writeXls
 	 * @Description: 写入xls
-	 * @param path 参数说明
-	 * @return void    返回类型
+	 * @param path
+	 *            参数说明
+	 * @return void 返回类型
 	 */
-	public static void writeXls(String path) {
+	public void writeXls(String path) {
 		HSSFWorkbook workbook = null;
 		workbook = new HSSFWorkbook();
 		// 获取参数个数作为excel列数
@@ -285,7 +290,8 @@ public class ExcelUtil {
 
 		// 写到磁盘上
 		try {
-			FileOutputStream fileOutputStream = new FileOutputStream(new File(path));
+			FileOutputStream fileOutputStream = new FileOutputStream(new File(
+					path));
 			workbook.write(fileOutputStream);
 			fileOutputStream.close();
 			System.out.println("##################完成写入##################");
@@ -298,16 +304,18 @@ public class ExcelUtil {
 
 	/**
 	 * 
-	 * @Title: readXls 
+	 * @Title: readXls
 	 * @Description: 读取xls
 	 * @param path
 	 * @throws FileNotFoundException
-	 * @throws IOException 参数说明
-	 * @return void    返回类型
+	 * @throws IOException
+	 *             参数说明
+	 * @return void 返回类型
 	 */
-	public static void readXls(String path) throws FileNotFoundException, IOException {
+	public void readXls(String path) throws FileNotFoundException, IOException {
 		File file = new File(path);
-		POIFSFileSystem poifsFileSystem = new POIFSFileSystem(new FileInputStream(file));
+		POIFSFileSystem poifsFileSystem = new POIFSFileSystem(
+				new FileInputStream(file));
 		HSSFWorkbook hssfWorkbook = new HSSFWorkbook(poifsFileSystem);
 		for (int numSheet = 0; numSheet < hssfWorkbook.getNumberOfSheets(); numSheet++) {
 			HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(numSheet);
@@ -360,12 +368,103 @@ public class ExcelUtil {
 
 	/**
 	 * 
-	 * @Title: readXlsx 
-	 * @Description: 读取xlsx
-	 * @throws IOException 参数说明
-	 * @return void    返回类型
+	 * @param path
+	 *            路径
+	 * @return list
+	 * @throws IOException
 	 */
-	public static void readXlsx(String path) throws IOException {
+	public List<Map<String, String>> readXlsxRetList(String path)
+			throws IOException {
+		return readXlsxRetList(path, null, null, null, null, null, null);
+	}
+
+	/**
+	 * 
+	 * @param path
+	 *            路径
+	 * @param sheetNo
+	 *            sheet页
+	 * @param rowstart
+	 *            行开始 默认0
+	 * @param rowEnd
+	 *            行结束
+	 * @param cellStart
+	 *            列开始 默认0
+	 * @param cellEnd
+	 *            列结束
+	 * @return list
+	 * @throws IOException
+	 */
+	public List<Map<String, String>> readXlsxRetList(String path,
+			Integer sheetStartNo0, Integer sheetNo0, Integer rowstart0,
+			Integer rowEnd0, Integer cellStart0, Integer cellEnd0)
+			throws IOException {
+
+		// 读取文件流
+		InputStream is = new FileInputStream(path);
+		XSSFWorkbook xssfWorkbook = new XSSFWorkbook(is);
+
+		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+
+		int sheetStartNo = sheetStartNo0 == null ? 0 : sheetStartNo0.intValue();
+
+		int sheetNo = sheetNo0 == null ? xssfWorkbook.getNumberOfSheets()
+				: sheetNo0.intValue();
+
+		int rowstart;
+		int rowEnd;
+
+		int cellStart;
+		int cellEnd;
+		Map<String, String> map = null;
+		// 读取每个sheet页
+		for (int numSheet = sheetStartNo; numSheet < sheetNo; numSheet++) {
+			XSSFSheet xssfSheet = xssfWorkbook.getSheetAt(numSheet);
+			if (xssfSheet == null) {
+				continue;
+			}
+
+			rowstart = rowstart0 == null ? xssfSheet.getFirstRowNum()
+					: rowstart0.intValue();// 开始行 第一行为0
+
+			rowEnd = rowEnd0 == null ? xssfSheet.getLastRowNum() : rowEnd0
+					.intValue(); // 结束行
+
+			for (int i = rowstart; i <= rowEnd; i++) {
+				map = new HashMap<String, String>();
+				XSSFRow row = xssfSheet.getRow(i);
+				if (null == row)
+					continue;
+				cellStart = cellStart0 == null ? row.getFirstCellNum()
+						: cellStart0.intValue();// 开始列 第一列为0
+				cellEnd = cellEnd0 == null ? row.getLastCellNum() : cellEnd0
+						.intValue();// 结束列
+
+				for (int k = cellStart; k <= cellEnd; k++) {
+					XSSFCell cell = row.getCell(k);// 获取单元格值
+					if (null == cell)
+						continue;
+
+					map.put(k + "", cell.getStringCellValue());
+				}
+				list.add(map);
+				// System.out.print("\n");
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * 
+	 * @Title: readXlsx
+	 * @Description: 读取xlsx
+	 * @throws IOException
+	 *             参数说明
+	 * @return void 返回类型
+	 */
+	public void readXlsx(String path) throws IOException {
+
 		// 读取文件流
 		InputStream is = new FileInputStream(path);
 		XSSFWorkbook xssfWorkbook = new XSSFWorkbook(is);

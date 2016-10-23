@@ -20,24 +20,35 @@ import common.util.ExcelUtil;
  * @author Suny
  *
  */
-public class HouseCsTest1 {
+public class HouseCsTest3 {
 	public static void main(String[] args) throws IOException {
 
 		HttpRequestMethod method = new HttpRequestMethod();
-
 		List<Map<String, String>> list = null;
 		Map<String, String> map = null;
+		String saleNo;
 
-		for (int pageNo = 1; pageNo < 314; pageNo++) {
-			System.out.println("******************************讀取第" + pageNo
-					+ "頁******************************");
+		// 读取链接
+		List<Map<String, String>> readList = new ExcelUtil()
+				.readXlsxRetList("D://test2.xlsx");
+		for (int a = 0; a < readList.size(); a++) {
+
+			saleNo = readList.get(a).get("0");
+
+			if (a == 438) {
+				System.out.println("err");
+			}
+
+			System.out.println("******************************讀取第" + a
+					+ "个记录******************************");
+
 			list = new ArrayList<Map<String, String>>();
 			// 獲取數據
-			String content = method
-					.sendPost(
-							"http://www.csfdc.gov.cn/index.php/home/Index/getnewslist/",
-							"type=25&p=" + pageNo); // post请求访问页面(URL及参数已处理)
+			String content = method.sendPost(
+					"http://www.csfdc.gov.cn/index.php/home/Index/geths/",
+					"ywzh=" + saleNo); // post请求访问页面(URL及参数已处理)
 			JSONObject object;
+
 			try {
 				object = new JSONObject(content);
 				String value = object.getString("content");
@@ -46,24 +57,18 @@ public class HouseCsTest1 {
 				// System.out.println(realUrl);
 				// System.out.println(connection);
 				for (int i = 1; i < trs.size() - 1; i++) {
-
+					int k = 0;
 					map = new HashMap<String, String>();
-
+					map.put(k + "", saleNo);
+					++k;
 					Elements tds = trs.get(i).select("td");
 
 					int tdsize = tds.size();
 
-					for (int j = 0; j < tdsize; j++) {
+					for (int j = 0; j < tdsize; j++, k++) {
 						String text = tds.get(j).text();
 						// System.out.println(text);
-						map.put(j + "", text);
-					}
-
-					Elements as = trs.get(i).select("a");
-					for (int k = 0; k < as.size(); k++) {
-						String url = as.get(k).attr("href");
-						// System.out.println(host+url);
-						map.put((k + tdsize) + "", method.host + url);
+						map.put(k + "", text);
 					}
 					list.add(map);
 				}
@@ -72,7 +77,8 @@ public class HouseCsTest1 {
 			}
 
 			// 導入excel
-			new ExcelUtil().appendXlsx("D://house.xlsx", list, 0);
+			new ExcelUtil().appendXlsx("D://sale.xlsx", list, 0);
+
 		}
 	}
 }

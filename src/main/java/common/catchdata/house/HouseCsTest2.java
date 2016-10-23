@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -24,47 +23,100 @@ public class HouseCsTest2 {
 	public static void main(String[] args) throws IOException {
 
 		HttpRequestMethod method = new HttpRequestMethod();
-
 		List<Map<String, String>> list = null;
+		List<Map<String, String>> buildList = null;
 		Map<String, String> map = null;
+		Map<String, String> buildmap = null;
+		String readUrl;
 
-		for (int pageNo = 1; pageNo < 314; pageNo++) {
-			System.out.println("******************************讀取第" + pageNo
-					+ "頁******************************");
+		// 读取链接
+		List<Map<String, String>> readList = new ExcelUtil()
+				.readXlsxRetList("D://test.xlsx");
+		for (int a = 0; a < readList.size(); a++) {
+
+			readUrl = readList.get(a).get("0");
+
+			System.out.println("******************************讀取第" + a
+					+ "个记录******************************");
+
 			list = new ArrayList<Map<String, String>>();
+			buildList = new ArrayList<Map<String, String>>();
 			// 獲取數據
-			String content = method
-					.sendPost(
-							"http://www.csfdc.gov.cn/index.php/home/Index/getnewslist/",
-							"type=25&p=" + pageNo); // post请求访问页面(URL及参数已处理)
-			JSONObject object;
+			String content = method.sendGet(readUrl, null); // post请求访问页面(URL及参数已处理)
 			try {
-				object = new JSONObject(content);
-				String value = object.getString("content");
-				Document doc = Jsoup.parse(value.toString());
-				Elements trs = doc.select("table").select("tr");
-				// System.out.println(realUrl);
-				// System.out.println(connection);
-				for (int i = 1; i < trs.size() - 1; i++) {
+				Document doc = Jsoup.parse(content);
+				Elements tabs = doc.select("table");
 
-					map = new HashMap<String, String>();
+				int c = 1;
+				int d = 0;
+				map = new HashMap<String, String>();
+				for (int b = tabs.size() - 1; b >= 0; b--, c++) {
+					System.out.println(tabs.get(b));
+					// if (c == 7) {
+					// String text = tabs.get(b).select("td").get(0).text();
+					// map.put(d + "", text);
+					// ++d;
+					// }
+					//
+					// if (c == 5) {
+					//
+					// Elements trs = tabs.get(b).select("tr");
+					//
+					// for (int i = 0; i < trs.size() - 1; i++) {
+					//
+					// Elements tds = trs.get(i).select("td");
+					//
+					// int tdsize = tds.size();
+					//
+					// for (int j = 0; j < tdsize; j++) {
+					//
+					// if (j % 2 == 0) {
+					// continue;
+					// }
+					//
+					// String text = tds.get(j).text();
+					// // System.out.println(text);
+					// map.put(d + "", text);
+					// ++d;
+					// }
+					// }
+					// }
 
-					Elements tds = trs.get(i).select("td");
+					if (c == 1) {
+						Elements trs = tabs.get(b).select("tr");
 
-					int tdsize = tds.size();
+						for (int i = 1; i < trs.size() - 1; i++) {
+							buildmap = new HashMap<String, String>();
+							Elements tds = trs.get(i).select("td");
 
-					for (int j = 0; j < tdsize; j++) {
-						String text = tds.get(j).text();
-						// System.out.println(text);
-						map.put(j + "", text);
+							if (i % 2 == 0) {
+								continue;
+							}
+
+							int tdsize = tds.size();
+
+							for (int j = 0; j < tdsize; j++) {
+								String text;
+								if (j == 8) {
+									text = tds.get(j).attr("onclick");
+								} else {
+									text = tds.get(j).text();
+								}
+
+								// System.out.println(text);
+								buildmap.put(j + "", text);
+							}
+
+							if (buildmap != null && buildmap.size() > 0) {
+								buildList.add(buildmap);
+							}
+						}
 					}
+					System.out.println("********************" + c
+							+ "***********************");
+				}
 
-					Elements as = trs.get(i).select("a");
-					for (int k = 0; k < as.size(); k++) {
-						String url = as.get(k).attr("href");
-						// System.out.println(host+url);
-						map.put((k + tdsize) + "", method.host + url);
-					}
+				if (map != null && map.size() > 0) {
 					list.add(map);
 				}
 			} catch (Exception e) {
@@ -72,7 +124,8 @@ public class HouseCsTest2 {
 			}
 
 			// 導入excel
-			ExcelUtil.appendXlsx("D://house.xlsx", list);
+			// new ExcelUtil().appendXlsx("D://house2.xlsx", list, 0);
+			new ExcelUtil().appendXlsx("D://room.xlsx", buildList, 0);
 		}
 	}
 }

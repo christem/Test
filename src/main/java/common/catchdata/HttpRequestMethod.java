@@ -9,6 +9,8 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.util.StringUtils;
+
 public class HttpRequestMethod {
 
 	public URL realUrl = null;
@@ -30,7 +32,14 @@ public class HttpRequestMethod {
 		String result = "";
 		BufferedReader in = null;
 		try {
-			String urlNameString = url + "?" + param;
+			String urlNameString = StringUtils.isEmpty(param) ? url : url + "?"
+					+ param;
+
+			if (!urlNameString.startsWith("http://")
+					|| !urlNameString.startsWith("https://")) {
+				urlNameString = "http://" + urlNameString;
+			}
+
 			realUrl = new URL(urlNameString);
 			connection = realUrl.openConnection();
 			// 设置通用的请求属性
@@ -45,7 +54,7 @@ public class HttpRequestMethod {
 			// 遍历所有的响应头字段
 			// 定义 BufferedReader输入流来读取URL的响应
 			in = new BufferedReader(new InputStreamReader(
-					connection.getInputStream(), "gb2312"));
+					connection.getInputStream(), "UTF-8"));
 			String line;
 			while ((line = in.readLine()) != null) {
 				result += line;
