@@ -258,6 +258,25 @@
 				<version>7.0.0</version>
 			</dependency>
 		
+		
+		<!-- 解析html -->
+		<dependency>
+		    <groupId>org.jsoup</groupId>
+		    <artifactId>jsoup</artifactId>
+		    <version>1.9.2</version>
+		</dependency>
+		<!-- 解析excel -->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>3.9</version>
+		</dependency>
+		<dependency>  
+            <groupId>org.apache.poi</groupId>  
+            <artifactId>poi-excelant</artifactId>  
+            <version>3.9</version>  
+        </dependency> 
+		
 	</dependencies>
 	
 <build>
@@ -267,8 +286,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                 <encoding>UTF-8</encoding>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
         </plugins>
