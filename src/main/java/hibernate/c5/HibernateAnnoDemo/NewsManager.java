@@ -20,26 +20,34 @@ public class NewsManager {
 		// 开始事务
 		Transaction tx = sess.beginTransaction();
 
-		// // 创建消息实例
-		// News n = new News();
-		// // 设置消息标题和消息内容
-		// n.setTitle("疯狂Java联盟成立了");
-		// n.setContent("疯狂Java联盟成立了，" + "网站地址http://www.crazyit.org");
-		// // 保存消息
-		// sess.save(n);
+		 // 创建消息实例
+		 News n = new News();
+		 // 设置消息标题和消息内容
+		 n.setTitle("疯狂Java联盟成立了");
+		 n.setContent("疯狂Java联盟成立了，" + "网站地址http://www.crazyit.org");
+		 // 保存消息
+		 sess.save(n);
+		 
+		// 创建消息实例
+		 News n2 = new News();
+		 // 设置消息标题和消息内容
+		 n2.setTitle("疯狂Java联盟成立了");
+		 n2.setContent("疯狂Java联盟成立了，" + "网站地址http://www.crazyit.org");
+		 // 保存消息
+		 sess.save(n2);
 
-		List<News> list = sess.createQuery("from News where id=1 ")
-				.setMaxResults(1).list();
+//		List<News> list = sess.createQuery("from News where id=1 ")
+//				.setMaxResults(1).list();
 
-		for (News bean : list) {
-			System.out.println(bean.getId() + "    " + bean.getTitle() + "    "
-					+ bean.getContent());
-
-			if (bean.getId() == 9) {
-				bean.setContent("update");
-				sess.update(bean);
-			}
-		}
+//		for (News bean : list) {
+//			System.out.println(bean.getId() + "    " + bean.getTitle() + "    "
+//					+ bean.getContent());
+//
+//			if (bean.getId() == 9) {
+//				bean.setContent("update");
+//				sess.update(bean);
+//			}
+//		}
 
 		// 提交事务
 		tx.commit();

@@ -30,8 +30,7 @@ public class HouseCsTest2 {
 		String readUrl;
 
 		// 读取链接
-		List<Map<String, String>> readList = new ExcelUtil()
-				.readXlsxRetList("D://test.xlsx");
+		List<Map<String, String>> readList = new ExcelUtil().readXlsxRetList("D://test.xlsx");
 		for (int a = 0; a < readList.size(); a++) {
 
 			readUrl = readList.get(a).get("0");
@@ -51,36 +50,37 @@ public class HouseCsTest2 {
 				int d = 0;
 				map = new HashMap<String, String>();
 				for (int b = tabs.size() - 1; b >= 0; b--, c++) {
-					System.out.println(tabs.get(b));
-					// if (c == 7) {
-					// String text = tabs.get(b).select("td").get(0).text();
-					// map.put(d + "", text);
-					// ++d;
-					// }
-					//
-					// if (c == 5) {
-					//
-					// Elements trs = tabs.get(b).select("tr");
-					//
-					// for (int i = 0; i < trs.size() - 1; i++) {
-					//
-					// Elements tds = trs.get(i).select("td");
-					//
-					// int tdsize = tds.size();
-					//
-					// for (int j = 0; j < tdsize; j++) {
-					//
-					// if (j % 2 == 0) {
-					// continue;
-					// }
-					//
-					// String text = tds.get(j).text();
-					// // System.out.println(text);
-					// map.put(d + "", text);
-					// ++d;
-					// }
-					// }
-					// }
+//					System.out.println(tabs.get(b));
+					if (c == 7) {
+						String text = tabs.get(b).select("td").get(0).text();
+						map.put(d + "", text);
+						++d;
+					}
+
+					if (c == 5) {
+
+						Elements trs = tabs.get(b).select("tr");
+
+						for (int i = 0; i < trs.size() - 1; i++) {
+
+							Elements tds = trs.get(i).select("td");
+
+							int tdsize = tds.size();
+
+							for (int j = 0; j < tdsize; j++) {
+
+								if (j % 2 == 0) {
+									continue;
+								}
+
+								String text = tds.get(j).text();
+								map.put(d + "", text);
+								++d;
+							}
+						}
+					}
+					
+					map.put(d+"", a+"");
 
 					if (c == 1) {
 						Elements trs = tabs.get(b).select("tr");
@@ -103,17 +103,17 @@ public class HouseCsTest2 {
 									text = tds.get(j).text();
 								}
 
-								// System.out.println(text);
 								buildmap.put(j + "", text);
 							}
-
+							
+							buildmap.put("9", a+"");
+							
 							if (buildmap != null && buildmap.size() > 0) {
 								buildList.add(buildmap);
 							}
 						}
 					}
-					System.out.println("********************" + c
-							+ "***********************");
+					System.out.println("********************" + c + "***********************");
 				}
 
 				if (map != null && map.size() > 0) {
@@ -124,8 +124,8 @@ public class HouseCsTest2 {
 			}
 
 			// 導入excel
-			// new ExcelUtil().appendXlsx("D://house2.xlsx", list, 0);
-			new ExcelUtil().appendXlsx("D://room.xlsx", buildList, 0);
+			new ExcelUtil().appendXlsx("D://house2.xlsx", list, 0, null);
+			new ExcelUtil().appendXlsx("D://room.xlsx", buildList, 0, null);
 		}
 	}
 }

@@ -9,10 +9,29 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.util.StringUtils;
 
 public class HttpRequestMethod {
 
+	public static void main(String args[]) throws JSONException{
+		HttpRequestMethod method = new HttpRequestMethod();
+		
+		String content = method.sendPost(
+				"http://www.csfdc.gov.cn/index.php/home/Index/geths/",
+				"ywzh=" + "KF1104070561"); // post请求访问页面(URL及参数已处理)
+		JSONObject object;
+			object = new JSONObject(content);
+			String value = object.getString("content");
+			Document doc = Jsoup.parse(value.toString());
+			Elements trs = doc.select("table").select("tr");
+			System.out.println(trs);
+	}
+	
 	public URL realUrl = null;
 	// 打开和URL之间的连接
 	public URLConnection connection = null;
