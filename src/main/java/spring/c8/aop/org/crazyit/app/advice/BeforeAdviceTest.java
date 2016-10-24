@@ -4,41 +4,41 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
-//¶¨ÒåÒ»¸öÇĞÃæ
+//å®šä¹‰ä¸€ä¸ªåˆ‡é¢
 @Aspect
 public class BeforeAdviceTest {
-	// Æ¥Åäspring.c8.before.org.crazyit.app.service.impl°üÏÂËùÓĞÀàµÄ¡¢
-	// ËùÓĞ·½·¨µÄÖ´ĞĞ×÷ÎªÇĞÈëµã
+	// åŒ¹é…spring.c8.before.org.crazyit.app.service.implåŒ…ä¸‹æ‰€æœ‰ç±»çš„ã€
+	// æ‰€æœ‰æ–¹æ³•çš„æ‰§è¡Œä½œä¸ºåˆ‡å…¥ç‚¹
 	// @Before("execution(* spring.c8.aop.org.crazyit.app.service.impl.*.*(..))")
 	// public void authority() {
-	// System.out.println("Ä£Äâ·½·¨¿ªÊ¼Ç°--Ö´ĞĞÈ¨ÏŞ¼ì²é...");
+	// System.out.println("æ¨¡æ‹Ÿæ–¹æ³•å¼€å§‹å‰--æ‰§è¡Œæƒé™æ£€æŸ¥...");
 	// }
 	//
-	// // Æ¥Åäorg.crazyit.app.service°üÏÂËùÓĞÀàµÄ¡¢
-	// // ËùÓĞ·½·¨µÄÖ´ĞĞ×÷ÎªÇĞÈëµã
+	// // åŒ¹é…org.crazyit.app.serviceåŒ…ä¸‹æ‰€æœ‰ç±»çš„ã€
+	// // æ‰€æœ‰æ–¹æ³•çš„æ‰§è¡Œä½œä¸ºåˆ‡å…¥ç‚¹
 	// @After("execution(* spring.c8.aop.org.crazyit.app.service.*.*(..))")
 	// public void release() {
-	// System.out.println("Ä£Äâ·½·¨½áÊøºó--ÊÍ·Å×ÊÔ´...");
+	// System.out.println("æ¨¡æ‹Ÿæ–¹æ³•ç»“æŸå--é‡Šæ”¾èµ„æº...");
 	// }
 	//
-	// // Æ¥Åäorg.crazyit.app.service.impl°üÏÂËùÓĞÀàµÄ¡¢
-	// // ËùÓĞ·½·¨µÄÖ´ĞĞ×÷ÎªÇĞÈëµã
+	// // åŒ¹é…org.crazyit.app.service.implåŒ…ä¸‹æ‰€æœ‰ç±»çš„ã€
+	// // æ‰€æœ‰æ–¹æ³•çš„æ‰§è¡Œä½œä¸ºåˆ‡å…¥ç‚¹
 	// @AfterReturning(returning = "rvt", pointcut =
 	// "execution(* spring.c8.aop.org.crazyit.app.service.impl.*.*(..))")
 	// public void log(Object rvt) {
-	// System.out.println("»ñÈ¡Ä¿±ê·½·¨·µ»ØÖµ:" + rvt);
-	// System.out.println("Ä£Äâ¼ÇÂ¼ÈÕÖ¾¹¦ÄÜ...");
+	// System.out.println("è·å–ç›®æ ‡æ–¹æ³•è¿”å›å€¼:" + rvt);
+	// System.out.println("æ¨¡æ‹Ÿè®°å½•æ—¥å¿—åŠŸèƒ½...");
 	// }
 
-	// Æ¥Åäorg.crazyit.app.service.impl°üÏÂËùÓĞÀàµÄ¡¢
-	// ËùÓĞ·½·¨µÄÖ´ĞĞ×÷ÎªÇĞÈëµã @Around = @Before + @AfterReturning
-	// Ïß³Ì°²È«£¬Ò»°ãÔÚÄ¿±ê·½·¨Ö´ĞĞÖ®ºóºÍÖ®ºó¹²ÏíÄ³ÖÖ×´Ì¬Êı¾İ
+	// åŒ¹é…org.crazyit.app.service.implåŒ…ä¸‹æ‰€æœ‰ç±»çš„ã€
+	// æ‰€æœ‰æ–¹æ³•çš„æ‰§è¡Œä½œä¸ºåˆ‡å…¥ç‚¹ @Around = @Before + @AfterReturning
+	// çº¿ç¨‹å®‰å…¨ï¼Œä¸€èˆ¬åœ¨ç›®æ ‡æ–¹æ³•æ‰§è¡Œä¹‹åå’Œä¹‹åå…±äº«æŸç§çŠ¶æ€æ•°æ®
 	@Around("execution(* spring.c8.aop.org.crazyit.app.service.impl.*.*(..))")
 	public Object processTx(ProceedingJoinPoint jp) throws java.lang.Throwable {
-		System.out.println("Ö´ĞĞÄ¿±ê·½·¨Ö®Ç°£¬Ä£Äâ¿ªÊ¼ÊÂÎñ...");
-		// Ö´ĞĞÄ¿±ê·½·¨£¬²¢±£´æÄ¿±ê·½·¨Ö´ĞĞºóµÄ·µ»ØÖµ
-		Object rvt = jp.proceed(new String[] { "±»¸Ä±äµÄ²ÎÊı" });
-		System.out.println("Ö´ĞĞÄ¿±ê·½·¨Ö®ºó£¬Ä£Äâ½áÊøÊÂÎñ...");
-		return rvt + " ĞÂÔöµÄÄÚÈİ";
+		System.out.println("æ‰§è¡Œç›®æ ‡æ–¹æ³•ä¹‹å‰ï¼Œæ¨¡æ‹Ÿå¼€å§‹äº‹åŠ¡...");
+		// æ‰§è¡Œç›®æ ‡æ–¹æ³•ï¼Œå¹¶ä¿å­˜ç›®æ ‡æ–¹æ³•æ‰§è¡Œåçš„è¿”å›å€¼
+		Object rvt = jp.proceed(new String[] { "è¢«æ”¹å˜çš„å‚æ•°" });
+		System.out.println("æ‰§è¡Œç›®æ ‡æ–¹æ³•ä¹‹åï¼Œæ¨¡æ‹Ÿç»“æŸäº‹åŠ¡...");
+		return rvt + " æ–°å¢çš„å†…å®¹";
 	}
 }

@@ -25,7 +25,8 @@ public class NServer {
 		server.socket().bind(isa);
 		// 设置ServerSocket以非阻塞方式工作
 		server.configureBlocking(false);
-		// 将server注册到指定Selector对象
+		//将通道管理器和该通道绑定，并为该通道注册SelectionKey.OP_ACCEPT事件,注册该事件后，  
+        //当该事件到达时，selector.select()会返回，如果该事件没到达selector.select()会一直阻塞。 
 		server.register(selector, SelectionKey.OP_ACCEPT);
 		while (selector.select() > 0) {// 有可用的io操作，若无则调用该方法的线程阻塞
 			// 依次处理selector上的每个已选择的SelectionKey

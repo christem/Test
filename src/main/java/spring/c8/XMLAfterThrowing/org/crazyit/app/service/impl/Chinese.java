@@ -5,23 +5,23 @@ import java.io.FileInputStream;
 import spring.c8.XMLAfterThrowing.org.crazyit.app.service.Person;
 
 public class Chinese implements Person {
-	// ÊµÏÖPerson½Ó¿ÚµÄsayHello()·½·¨
+	// å®ç°Personæ¥å£çš„sayHello()æ–¹æ³•
 	public String sayHello(String name) {
-		// ¸Ã·½·¨ÌåÄÚËäÈ»Å×³öÁËÒì³££¬µ«¸Ã·½·¨
-		// ×Ô¼º´¦ÀíÁË¸ÃÒì³££¬ËùÒÔAOP²»»á¶Ô¸ÃÒì³£½øĞĞ´¦Àí
+		// è¯¥æ–¹æ³•ä½“å†…è™½ç„¶æŠ›å‡ºäº†å¼‚å¸¸ï¼Œä½†è¯¥æ–¹æ³•
+		// è‡ªå·±å¤„ç†äº†è¯¥å¼‚å¸¸ï¼Œæ‰€ä»¥AOPä¸ä¼šå¯¹è¯¥å¼‚å¸¸è¿›è¡Œå¤„ç†
 		try {
-			System.out.println("sayHello·½·¨¿ªÊ¼±»Ö´ĞĞ...");
+			System.out.println("sayHelloæ–¹æ³•å¼€å§‹è¢«æ‰§è¡Œ...");
 			new FileInputStream("a.txt");
 		} catch (Exception ex) {
-			System.out.println("Ä¿±êÀàµÄÒì³£´¦Àí" + ex.getMessage());
+			System.out.println("ç›®æ ‡ç±»çš„å¼‚å¸¸å¤„ç†" + ex.getMessage());
 		}
-		// ·µ»Ø¼òµ¥µÄ×Ö·û´®
+		// è¿”å›ç®€å•çš„å­—ç¬¦ä¸²
 		return name + " Hello , Spring AOP";
 	}
 
-	// ¶¨ÒåÒ»¸ödivide()·½·¨
+	// å®šä¹‰ä¸€ä¸ªdivide()æ–¹æ³•
 	public void divide() {
 		int a = 5 / 0;
-		System.out.println("divideÖ´ĞĞÍê³É£¡");
+		System.out.println("divideæ‰§è¡Œå®Œæˆï¼");
 	}
 }
