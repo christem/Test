@@ -3,6 +3,7 @@ package demo.base.c18Classloader.s4;
 import java.util.*;
 import java.io.*;
 import java.lang.reflect.*;
+import java.net.URL;
 
 public class ExtendedObjectPoolFactory {
 	// 定义一个对象池,前面是对象名，后面是实际对象
@@ -11,7 +12,10 @@ public class ExtendedObjectPoolFactory {
 
 	// 从指定属性文件中初始化Properties对象
 	public void init(String fileName) {
-		try (FileInputStream fis = new FileInputStream(fileName)) {
+		ClassLoader classLoader = getClass().getClassLoader();
+		URL url = classLoader.getResource(fileName);
+		
+		try (FileInputStream fis = new FileInputStream(url.getFile())) {
 			config.load(fis);
 		} catch (IOException ex) {
 			System.out.println("读取" + fileName + "异常");
@@ -75,7 +79,7 @@ public class ExtendedObjectPoolFactory {
 
 	public static void main(String[] args) throws Exception {
 		ExtendedObjectPoolFactory epf = new ExtendedObjectPoolFactory();
-		epf.init("extObj.txt");
+		epf.init("./demo/base/c18Classloader/s4/extObj.txt");
 		epf.initPool();
 		epf.initProperty();
 		System.out.println(epf.getObject("a"));

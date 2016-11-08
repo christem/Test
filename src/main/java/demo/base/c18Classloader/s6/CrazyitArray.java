@@ -22,5 +22,8 @@ public class CrazyitArray {
 		intArr[1] = new int[] { 23, 12 };
 		System.out.println(arr[5]);
 		System.out.println(intArr[1][1]);
+		
+		String[] arr2 = (String[]) Array.newInstance(String.class, 10);
+		
 	}
 }

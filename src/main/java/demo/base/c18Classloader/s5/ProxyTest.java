@@ -1,16 +1,20 @@
 package demo.base.c18Classloader.s5;
 
-import java.lang.reflect.*;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 
 interface Person {
 	void walk();
-
 	void sayHello(String name);
 }
 
 class MyInvokationHandler implements InvocationHandler {
 	/*
-	 * 执行动态代理对象的所有方法时，都会被替换成执行如下的invoke方法 其中： proxy：代表动态代理对象 method：代表正在执行的方法 args：代表调用目标方法时传入的实参。
+	 * 执行动态代理对象的所有方法时，都会被替换成执行如下的invoke方法 其中：
+	 * 		proxy：代表动态代理对象 
+	 * 		method：代表正在执行的方法 
+	 * 		args：代表调用目标方法时传入的实参。
 	 */
 	public Object invoke(Object proxy, Method method, Object[] args) {
 		System.out.println("----正在执行的方法:" + method);

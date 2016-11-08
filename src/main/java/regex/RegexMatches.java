@@ -8,8 +8,18 @@ public class RegexMatches {
     private static final String INPUT = "cat cat cat cattie cat";
 
     public static void main(String args[]) {
-	// test1();
-	test2();
+	String url = "get:/org/smart4j/chapter3/controller/customer_create";
+	String url1 = "get:/customer_create";
+	if (Pattern.compile("\\w+:/\\w*").matcher(url).find()){
+		System.out.println("url:"+true);
+	}
+	
+	if (Pattern.compile("\\w+:/\\w*").matcher(url1).find()){
+		System.out.println("url1:"+true);
+	}
+	
+    	// test1();
+    	//	test2();
     }
 
     public static void test2() {

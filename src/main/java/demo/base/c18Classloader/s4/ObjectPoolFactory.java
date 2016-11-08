@@ -2,6 +2,8 @@ package demo.base.c18Classloader.s4;
 
 import java.util.*;
 import java.io.*;
+import java.net.URL;
+
 public class ObjectPoolFactory {
 	// 定义一个对象池,前面是对象名，后面是实际对象
 	private Map<String, Object> objectPool = new HashMap<>();
@@ -20,7 +22,12 @@ public class ObjectPoolFactory {
 	// 它会根据配置文件来创建对象
 	public void initPool(String fileName) throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
-		try (FileInputStream fis = new FileInputStream(fileName)) {
+		
+		ClassLoader classLoader = getClass().getClassLoader();
+		//getResource()方法会去classpath下找这个文件，获取到url resource, 得到这个资源后，调用url.getFile获取到 文件 的绝对路径
+		URL url = classLoader.getResource(fileName);
+		
+		try (FileInputStream fis = new FileInputStream(url.getFile())) {
 			Properties props = new Properties();
 			props.load(fis);
 			for (String name : props.stringPropertyNames()) {
@@ -41,7 +48,7 @@ public class ObjectPoolFactory {
 
 	public static void main(String[] args) throws Exception {
 		ObjectPoolFactory pf = new ObjectPoolFactory();
-		pf.initPool("obj.txt");
+		pf.initPool("./demo/base/c18Classloader/s4/obj.txt");
 		System.out.println(pf.getObject("a")); // ①
 		System.out.println(pf.getObject("b")); // ②
 	}

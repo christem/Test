@@ -1,7 +1,10 @@
 package demo.base.c18Classloader.s6;
 
 import java.util.*;
+
 import javax.swing.*;
+
+import com.mysql.fabric.xmlrpc.base.Data;
 
 public class CrazyitObjectFactory2 {
 	public static <T> T getInstance(Class<T> cls) {
