@@ -281,7 +281,15 @@
 			<artifactId>poi-excelant</artifactId>
 			<version>3.9</version>
 		</dependency>
-
+		
+		<!-- https://mvnrepository.com/artifact/cglib/cglib -->
+		<dependency>
+		    <groupId>cglib</groupId>
+		    <artifactId>cglib</artifactId>
+		    <version>3.2.4</version>
+		</dependency>
+		
+		
 	</dependencies>
 
 	<build>
