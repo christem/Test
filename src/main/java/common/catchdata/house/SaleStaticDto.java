@@ -1,13 +1,4 @@
-/**   
- * @Project: Test 
- * @Title: SaleDto.java 
- * @Package common.catchdata.house 
- * @Description: TODO 
- * @author suny 
- * @date 2016年10月24日 下午2:20:49 
- * @Copyright: 2016 年 研信科技. All rights reserved  
- * @version V1.0   
- */
+
 package common.catchdata.house;
 
 import javax.persistence.Column;

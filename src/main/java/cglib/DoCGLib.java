@@ -1,13 +1,4 @@
-/**   
- * @Project: Test 
- * @Title: DoCGLib.java 
- * @Package cglib 
- * @Description: TODO 
- * @author suny 
- * @date 2016年11月8日 下午5:41:24 
- * @Copyright: 2016 年 研信科技. All rights reserved  
- * @version V1.0   
- */
+
 package cglib;
 
 /** 

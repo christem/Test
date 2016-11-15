@@ -1,26 +1,10 @@
-/**   
- * @Project: Test 
- * @Title: Test.java 
- * @Package common.catchdata.house 
- * @Description: TODO 
- * @author suny 
- * @date 2016年10月24日 上午10:59:13 
- * @Copyright: 2016 年 研信科技. All rights reserved  
- * @version V1.0   
- */
+
 package common.catchdata.house;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-/** 
- * @ClassName Test  
- * @Description TODO 
- * @author suny 
- * @date 2016年10月24日  
- *   
- */
 public class Test {
 
 	/** 

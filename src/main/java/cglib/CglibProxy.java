@@ -1,13 +1,3 @@
-/**   
- * @Project: Test 
- * @Title: CglibProxy.java 
- * @Package cglib 
- * @Description: TODO 
- * @author suny 
- * @date 2016年11月8日 下午5:38:10 
- * @Copyright: 2016 年 研信科技. All rights reserved  
- * @version V1.0   
- */
 package cglib;
 
 import java.lang.reflect.Method;
