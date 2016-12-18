@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phei.netty.aio;
+package com.phei.netty.c2.aio;
 
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
@@ -25,20 +25,23 @@ import java.nio.channels.CompletionHandler;
  * @version 1.0
  */
 public class AcceptCompletionHandler implements
-	CompletionHandler<AsynchronousSocketChannel, AsyncTimeServerHandler> {
+		CompletionHandler<AsynchronousSocketChannel, AsyncTimeServerHandler> {
 
-    @Override
-    public void completed(AsynchronousSocketChannel result,
-	    AsyncTimeServerHandler attachment) {
-	attachment.asynchronousServerSocketChannel.accept(attachment, this);
-	ByteBuffer buffer = ByteBuffer.allocate(1024);
-	result.read(buffer, buffer, new ReadCompletionHandler(result));
-    }
+	@Override
+	public void completed(AsynchronousSocketChannel result,
+			AsyncTimeServerHandler attachment) {
+		// 从attachment获取成员变量，然后调用accept方法
+		attachment.asynchronousServerSocketChannel.accept(attachment, this);
+		// 创建ByteBuffer 预分配1M的缓冲区
+		ByteBuffer buffer = ByteBuffer.allocate(1024);
+		// 异步读操作
+		result.read(buffer, buffer, new ReadCompletionHandler(result));
+	}
 
-    @Override
-    public void failed(Throwable exc, AsyncTimeServerHandler attachment) {
-	exc.printStackTrace();
-	attachment.latch.countDown();
-    }
+	@Override
+	public void failed(Throwable exc, AsyncTimeServerHandler attachment) {
+		exc.printStackTrace();
+		attachment.latch.countDown();
+	}
 
 }

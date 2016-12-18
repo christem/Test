@@ -45,10 +45,14 @@ public class MultiplexerTimeServer implements Runnable {
 	 */
 	public MultiplexerTimeServer(int port) {
 		try {
-			selector = Selector.open();
+			// 1.打开ServerSocketChannel 监听客户端连接
 			servChannel = ServerSocketChannel.open();
+			// 2.绑定端口 设置为非阻塞
 			servChannel.configureBlocking(false);
 			servChannel.socket().bind(new InetSocketAddress(port), 1024);
+			// 3.创建Selector，启动线程
+			selector = Selector.open();
+			// 4.将ServerSocketChannel注册到selector 监听
 			servChannel.register(selector, SelectionKey.OP_ACCEPT);
 			System.out.println("The time server is start in port : " + port);
 		} catch (IOException e) {
@@ -68,9 +72,10 @@ public class MultiplexerTimeServer implements Runnable {
 	 */
 	@Override
 	public void run() {
+		// 5.多路复用器在线程run方法的无限循环体内轮询准备就绪的key
 		while (!stop) {
 			try {
-				selector.select(1000);
+				selector.select(1000);// 每隔1s唤醒一次
 				Set<SelectionKey> selectedKeys = selector.selectedKeys();
 				Iterator<SelectionKey> it = selectedKeys.iterator();
 				SelectionKey key = null;
@@ -106,18 +111,23 @@ public class MultiplexerTimeServer implements Runnable {
 		if (key.isValid()) {
 			// 处理新接入的请求消息
 			if (key.isAcceptable()) {
-				// Accept the new connection
 				ServerSocketChannel ssc = (ServerSocketChannel) key.channel();
+				// 6.多路复用器监听到有新的客户端接入，处理新的接入请求，
+				// 完成TCP三次握手建立物理链路
 				SocketChannel sc = ssc.accept();
+				// 7.设置客户端连接为非阻塞模式
 				sc.configureBlocking(false);
-				// Add the new connection to the selector
+				// 8将新接入的客户端连接注册到多路复用器上，监听读操作，
+				// 用来读取客户端发送的网络消息
 				sc.register(selector, SelectionKey.OP_READ);
 			}
 			if (key.isReadable()) {
 				// Read the data
 				SocketChannel sc = (SocketChannel) key.channel();
 				ByteBuffer readBuffer = ByteBuffer.allocate(1024);
+				// 9异步读取客户端请求消息到缓冲区
 				int readBytes = sc.read(readBuffer);
+				// 10对ByteBuffer进行编解码
 				if (readBytes > 0) {
 					readBuffer.flip();
 					byte[] bytes = new byte[readBuffer.remaining()];
@@ -143,10 +153,12 @@ public class MultiplexerTimeServer implements Runnable {
 	private void doWrite(SocketChannel channel, String response)
 			throws IOException {
 		if (response != null && response.trim().length() > 0) {
-			byte[] bytes = response.getBytes();
+			byte[] bytes = response.getBytes();// 讲字符串编码成数组
 			ByteBuffer writeBuffer = ByteBuffer.allocate(bytes.length);
-			writeBuffer.put(bytes);
+			writeBuffer.put(bytes);// 将数组设置缓冲区
 			writeBuffer.flip();
+			// 11将POJO对象encode成ByteBuffer
+			// 调用SocketChannel的异步write接口，将消息异步发送给客户端
 			channel.write(writeBuffer);
 		}
 	}
