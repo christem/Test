@@ -41,14 +41,19 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
 		byte[] req = "QUERY TIME ORDER".getBytes();
 		firstMessage = Unpooled.buffer(req.length);
 		firstMessage.writeBytes(req);
-
 	}
 
+	/**
+	 * 当客户端和服务端TCP链路建立成功后，Netty的NIO线程会调用channelActive方法
+	 */
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) {
-		ctx.writeAndFlush(firstMessage);
+		ctx.writeAndFlush(firstMessage);// 进请求消息发送给服务器
 	}
 
+	/**
+	 * 当服务器返回应答消息时，channelRead方法被调用
+	 */
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg)
 			throws Exception {
@@ -59,6 +64,9 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
 		System.out.println("Now is : " + body);
 	}
 
+	/**
+	 * 当发生异常时，打印异常日志，释放客户端资源
+	 */
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
 		// 释放资源

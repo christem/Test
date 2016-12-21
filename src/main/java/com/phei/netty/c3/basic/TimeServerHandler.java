@@ -30,6 +30,7 @@ public class TimeServerHandler extends ChannelHandlerAdapter {
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg)
 			throws Exception {
+		// msg转换为ByteBuf 类似ByteBuffer
 		ByteBuf buf = (ByteBuf) msg;
 		byte[] req = new byte[buf.readableBytes()];
 		buf.readBytes(req);
@@ -38,11 +39,12 @@ public class TimeServerHandler extends ChannelHandlerAdapter {
 		String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(body) ? new java.util.Date(
 				System.currentTimeMillis()).toString() : "BAD ORDER";
 		ByteBuf resp = Unpooled.copiedBuffer(currentTime.getBytes());
-		ctx.write(resp);
+		ctx.write(resp);// 异步发送应答消息给客户端
 	}
 
 	@Override
 	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+		// 将消息发送队列中的消息写入到SocketChannel中发送给对象
 		ctx.flush();
 	}
 

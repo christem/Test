@@ -42,6 +42,7 @@ public class TimeClient {
 						@Override
 						public void initChannel(SocketChannel ch)
 								throws Exception {
+							// 创建NioSocketChannel成功后，在初始化时将它的channelHandler设置到ChannelPipe中，用于处于网络IO事件
 							ch.pipeline().addLast(new TimeClientHandler());
 						}
 					});
