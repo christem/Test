@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -36,6 +37,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelUtil {
 
+
+
 	public void main(String[] args) throws IOException {
 		// readXlsx("D://1.xlsx");
 		// readXls("D://2.xls") ;
@@ -59,6 +62,92 @@ public class ExcelUtil {
 		// appendXlsx("D://5.xlsx", list);
 
 		readXlsxRetList("D://test.xlsx");
+	}
+
+	public String getCellValueString(HSSFCell cell){
+		if (null == cell)
+			return "";
+		switch (cell.getCellType()) {
+			case HSSFCell.CELL_TYPE_NUMERIC: // 数字
+				return cell.getNumericCellValue()+"";
+			case HSSFCell.CELL_TYPE_STRING: // 字符串
+				return cell.getStringCellValue()+"";
+			case HSSFCell.CELL_TYPE_BOOLEAN: // Boolean
+				return cell.getBooleanCellValue()+"";
+			case HSSFCell.CELL_TYPE_FORMULA: // 公式
+				return cell.getCellFormula()+"";
+			case HSSFCell.CELL_TYPE_BLANK: // 空值
+				return "";
+			case HSSFCell.CELL_TYPE_ERROR: // 故障
+				return "";
+			default:
+				return "";
+		}
+	}
+
+	/**
+	 *
+	 * @Title: readXls
+	 * @Description: 读取xls
+	 * @param path
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 *             参数说明
+	 * @return void 返回类型
+	 */
+	public void readXlsAll(String path) throws FileNotFoundException, IOException {
+		File file = new File(path);
+		POIFSFileSystem poifsFileSystem = new POIFSFileSystem(
+				new FileInputStream(file));
+		HSSFWorkbook hssfWorkbook = new HSSFWorkbook(poifsFileSystem);
+		for (int numSheet = 0; numSheet < hssfWorkbook.getNumberOfSheets(); numSheet++) {
+			HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(numSheet);
+
+			if (hssfSheet == null) {
+				continue;
+			}
+			String sheetName = hssfSheet.getSheetName().trim();
+
+			int rowstart = hssfSheet.getFirstRowNum();
+			int rowEnd = hssfSheet.getLastRowNum();
+
+			List<List<String>> resultList =new ArrayList<>();
+			List<String> beanList=null;
+
+
+			loop1: for (int i = rowstart+1; i <= rowEnd; i++) {
+
+				beanList =new ArrayList<>();
+
+				HSSFRow row = hssfSheet.getRow(i);
+				if (null == row)
+					continue;
+				int cellStart = row.getFirstCellNum();
+				int cellEnd = row.getLastCellNum();
+				beanList.add(numSheet+"");
+				beanList.add(sheetName);
+				for (int k = cellStart; k <= cellEnd; k++) {
+					HSSFCell cell = row.getCell(k);
+					String col = getCellValueString(cell);
+
+					if ((StringUtils.isEmpty(col) && k == cellStart)||"返回目录".equals(col.trim())) {
+						break loop1;
+					}
+					beanList.add(StringUtils.isEmpty(col.trim())?"unknow":col.trim());
+
+				}
+				if (beanList!=null&&beanList.size()>0) {
+					resultList.add(beanList);
+				}
+			}
+			System.out.println("完成"+sheetName+"表,"+numSheet);
+			if (resultList!=null&&resultList.size()>0) {
+				System.out.println(resultList);
+				ExportCSVTask.getInstance().csvWrite(resultList.size()+"","D:\\zx.csv", resultList,"zx");
+			}
+
+		}
+		System.out.println("********完成所有****");
 	}
 
 	public void appendXlsx(String path, List<Map<String, String>> list,
