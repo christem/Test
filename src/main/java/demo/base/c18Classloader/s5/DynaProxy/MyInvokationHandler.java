@@ -1,6 +1,7 @@
 package demo.base.c18Classloader.s5.DynaProxy;
 
-import java.lang.reflect.*;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
 
 public class MyInvokationHandler implements InvocationHandler {
 	// 需要被代理的对象
@@ -11,7 +12,8 @@ public class MyInvokationHandler implements InvocationHandler {
 	}
 
 	// 执行动态代理对象的所有方法时，都会被替换成执行如下的invoke方法
-	public Object invoke(Object proxy, Method method, Object[] args) throws Exception {
+	public Object invoke(Object proxy, Method method, Object[] args)
+			throws Exception {
 		DogUtil du = new DogUtil();
 		// 执行DogUtil对象中的method1。
 		du.method1();

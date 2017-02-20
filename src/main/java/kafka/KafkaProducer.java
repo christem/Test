@@ -13,7 +13,7 @@ public class KafkaProducer extends Thread {
 
 	public KafkaProducer(String topic) {
 		// 配置key的序列化类
-		// props.put("key.serializer.class", "kafka.serializer.StringEncoder");
+		props.put("key.serializer.class", "kafka.serializer.StringEncoder");
 		props.put("serializer.class", "kafka.serializer.StringEncoder"); // 配置value的序列化类
 		props.put("metadata.broker.list", "localhost:9092");// 此处配置的是kafka的端口
 
@@ -34,24 +34,48 @@ public class KafkaProducer extends Thread {
 		 */
 
 		// props.put("request.required.acks", "-1");
-
+		props.put("partitioner.class", "kafka.SimplePartitioner");
 		producer = new Producer<Integer, String>(new ProducerConfig(props));
+
 		this.topic = topic;
 	}
 
 	@Override
 	public void run() {
+		// 创建主题
+		// String[] options = new String[] { "--create", "--zookeeper",
+		// "localhost:2181", "--partitions", "1", "--topic", "topic5",
+		// "--replication-factor", "1" };
+		// 查看主题
+		// String[] options = new String[] { "--list", "--zookeeper",
+		// "localhost:2181" };
+
+		// String[] options = new String[] { "--describe", "--zookeeper",
+		// "localhost:2181", "--topic", "topic2", };
+
+		// String[] options = new String[] { "--delete", "--zookeeper",
+		// "localhost:2181", "--topic", "topic7" };
+		// TopicCommand.main(options);
+
 		int messageNo = 1;
-		while (true) {
-			String messageStr = new String("Message_" + messageNo);
-			System.out.println("Send:" + messageStr);
-			producer.send(new KeyedMessage<Integer, String>(topic, messageStr));
-			messageNo++;
-			try {
-				sleep(3000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+		// while (messageNo < 100) {
+		// String messageStr = new String("Message_" + messageNo);
+		// System.out.println("Send:" + messageStr);
+		// KeyedMessage message = new KeyedMessage(topic, messageStr);
+		// producer.send(message);
+		// messageNo++;
+		// try {
+		// sleep(300);
+		// } catch (InterruptedException e) {
+		// e.printStackTrace();
+		// }
+		// }
+		for (int i = 1; i <= 160; i++) {
+			String k = "key" + i;
+			String v = k + "--value" + i;
+			KeyedMessage message = new KeyedMessage(topic, k, v);
+			producer.send(message);
 		}
+		producer.close();
 	}
 }

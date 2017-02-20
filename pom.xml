@@ -252,11 +252,11 @@
 		</dependency>
 
 		<!-- http://mvnrepository.com/artifact/org.apache.activemq/activemq-all -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-all</artifactId>
 			<version>5.13.3</version>
-		</dependency>
+		</dependency> -->
 		<!--七牛云上传 start -->
 		<dependency>
 			<groupId>com.qiniu</groupId>

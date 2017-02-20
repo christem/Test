@@ -1,15 +1,6 @@
 package demo.base.c18Classloader.s4;
 
-import java.lang.reflect.*;
-
-class Person {
-	private String name;
-	private int age;
-
-	public String toString() {
-		return "Person[name:" + name + " , age:" + age + " ]";
-	}
-}
+import java.lang.reflect.Field;
 
 public class FieldTest {
 	public static void main(String[] args) throws Exception {
@@ -31,5 +22,14 @@ public class FieldTest {
 		// 调用setInt()方法为p对象的age成员变量设置值
 		ageField.setInt(p, 30);
 		System.out.println(p);
+	}
+}
+
+class Person {
+	private String name;
+	private int age;
+
+	public String toString() {
+		return "Person[name:" + name + " , age:" + age + " ]";
 	}
 }

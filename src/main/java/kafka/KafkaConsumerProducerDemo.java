@@ -1,13 +1,16 @@
 package kafka;
 
 public class KafkaConsumerProducerDemo {
-    public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 
-	KafkaConsumer consumerThread = new KafkaConsumer(KafkaProperties.topic);
-	consumerThread.start();
+		// KafkaProducer producerThread = new
+		// KafkaProducer(KafkaProperties.topic);
+		// producerThread.start();
+		//
+		// Thread.sleep(3000);
 
-	KafkaProducer producerThread = new KafkaProducer(KafkaProperties.topic);
-	producerThread.start();
+		KafkaConsumer consumerThread = new KafkaConsumer(KafkaProperties.topic2);
+		consumerThread.start();
 
-    }
+	}
 }
