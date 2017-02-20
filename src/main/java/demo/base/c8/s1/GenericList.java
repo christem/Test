@@ -11,7 +11,7 @@ public class GenericList {
         strList.add("疯狂Android讲义");
         // 下面代码将引起编译错误
 //        strList.add(5);    // ②
-        strList.forEach(str -> System.out.println(str.length())); // ③
+//        strList.forEach(str -> System.out.println(str.length())); // ③
     }
 }
 

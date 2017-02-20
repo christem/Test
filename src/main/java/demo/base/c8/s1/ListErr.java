@@ -12,7 +12,7 @@ public class ListErr {
         books.add("疯狂Android讲义");
         books.add(5);
 
-        books.forEach(str -> System.out.println(((String)str).length())); //此处将会产生ClassCastException
+//        books.forEach(str -> System.out.println(((String)str).length())); //此处将会产生ClassCastException
 
 
         List<String> books2 = new ArrayList();
